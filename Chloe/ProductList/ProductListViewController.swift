@@ -4,7 +4,6 @@ import Combine
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListViewController(_ productListViewController: ProductListViewController,
                                    didSelect productItem: ProductListItem)
-    func productListViewControllerDidClose(productListViewController: ProductListViewController)
 }
 
 final class ProductListViewController: UIViewController {
@@ -100,10 +99,6 @@ final class ProductListViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in self.fetchProductList() }))
         present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction private func didTapClose() {
-        delegate?.productListViewControllerDidClose(productListViewController: self)
     }
     
     @IBAction private func didTapRetry() {

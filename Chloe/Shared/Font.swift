@@ -1,6 +1,7 @@
 import UIKit
 
 enum Font {
+    static let navigationTitle: UIFont = Futura2.regular(ofSize: 21)
     static let categoryTitle: UIFont = Futura2.regular(ofSize: 21)
     static let loadFailureTitle: UIFont = Futura2.regular(ofSize: 32)
     static let loadFailureRetry: UIFont = Futura2.regular(ofSize: 20)

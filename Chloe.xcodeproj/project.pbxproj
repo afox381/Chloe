@@ -36,6 +36,7 @@
 		6F2FC6F7282B06BF0043BD74 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6F6282B06BF0043BD74 /* FileManager+Extensions.swift */; };
 		6F2FC6F9282BBF200043BD74 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6F8282BBF200043BD74 /* UIStackView+Extensions.swift */; };
 		6F2FC6FB282C179C0043BD74 /* LikesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6FA282C179B0043BD74 /* LikesRepository.swift */; };
+		6F38F14A284ABFC60016FED2 /* UIViewController+Close.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F38F149284ABFC60016FED2 /* UIViewController+Close.swift */; };
 		6F9EDC0C2849525700114101 /* CarouselView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F9EDC072849525700114101 /* CarouselView.xib */; };
 		6F9EDC0D2849525700114101 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9EDC082849525700114101 /* CarouselView.swift */; };
 		6F9EDC0E2849525700114101 /* CarouselTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9EDC092849525700114101 /* CarouselTileView.swift */; };
@@ -112,6 +113,7 @@
 		6F2FC6F6282B06BF0043BD74 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		6F2FC6F8282BBF200043BD74 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		6F2FC6FA282C179B0043BD74 /* LikesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesRepository.swift; sourceTree = "<group>"; };
+		6F38F149284ABFC60016FED2 /* UIViewController+Close.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Close.swift"; sourceTree = "<group>"; };
 		6F9EDC072849525700114101 /* CarouselView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselView.xib; sourceTree = "<group>"; };
 		6F9EDC082849525700114101 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		6F9EDC092849525700114101 /* CarouselTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselTileView.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				6FA271912849E05B00B0ECB3 /* UIDevice+Extensions.swift */,
 				6F2FC6BD282977F30043BD74 /* UIImageView+Additions.swift */,
 				6F2FC6F8282BBF200043BD74 /* UIStackView+Extensions.swift */,
+				6F38F149284ABFC60016FED2 /* UIViewController+Close.swift */,
 				6F2FC6BE282977F30043BD74 /* UIView+Extensions.swift */,
 				6F2FC6BB282977F30043BD74 /* UIView+Inspectables.swift */,
 				6F2FC6BF282977F30043BD74 /* UIView+NibLoading.swift */,
@@ -546,6 +549,7 @@
 				6F9EDC0D2849525700114101 /* CarouselView.swift in Sources */,
 				6F2FC6C4282977F30043BD74 /* UIView+NibLoading.swift in Sources */,
 				6F2FC6CC282978FC0043BD74 /* ProductListRepository.swift in Sources */,
+				6F38F14A284ABFC60016FED2 /* UIViewController+Close.swift in Sources */,
 				6F9EDC222849D70600114101 /* NSAttributedString+Attribute.swift in Sources */,
 				6F9EDC122849531F00114101 /* Maths+Extensions.swift in Sources */,
 				6F2FC6E4282AF5090043BD74 /* ProductDetailRepository.swift in Sources */,
