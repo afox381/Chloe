@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductListViewController">
+            <connections>
+                <outlet property="tableView" destination="rQP-A4-Z7M" id="LL6-DD-B5M"/>
+                <outlet property="view" destination="iN0-l3-epB" id="u1T-nX-MGg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rQP-A4-Z7M">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="DzB-zR-Sva"/>
+                        <outlet property="delegate" destination="-1" id="arm-D9-dDL"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKh-nr-Ugf">
+                    <rect key="frame" x="347" y="44" width="67" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="didTapClose" destination="-1" eventType="touchUpInside" id="olw-VB-cvc"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rQP-A4-Z7M" secondAttribute="trailing" id="Key-8w-3ls"/>
+                <constraint firstItem="rQP-A4-Z7M" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Vw2-uP-Wz8"/>
+                <constraint firstItem="rQP-A4-Z7M" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Woc-fn-abk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RKh-nr-Ugf" secondAttribute="trailing" id="n2k-Ll-Dhf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rQP-A4-Z7M" secondAttribute="bottom" id="vCe-Pc-Gxp"/>
+                <constraint firstItem="RKh-nr-Ugf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wHc-9Z-moK"/>
+            </constraints>
+            <point key="canvasLocation" x="-330" y="53"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

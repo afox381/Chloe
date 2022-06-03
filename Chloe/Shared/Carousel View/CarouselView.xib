@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CarouselView" customModule="Chloe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-oj-qR1">
+                    <rect key="frame" x="170" y="234" width="74" height="37"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vT-Ft-iWq">
+                            <rect key="frame" x="16" y="8" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" name="ChloeBeige"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="7vT-Ft-iWq" secondAttribute="bottom" constant="8" id="qNG-tO-OVy"/>
+                        <constraint firstAttribute="trailing" secondItem="7vT-Ft-iWq" secondAttribute="trailing" constant="16" id="tOD-si-DyA"/>
+                        <constraint firstItem="7vT-Ft-iWq" firstAttribute="leading" secondItem="B9z-oj-qR1" secondAttribute="leading" constant="16" id="uCY-Bj-E3W"/>
+                        <constraint firstItem="7vT-Ft-iWq" firstAttribute="top" secondItem="B9z-oj-qR1" secondAttribute="top" constant="8" id="ud2-ZK-S3g"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="rr4-RD-bwZ">
+                    <rect key="frame" x="149.5" y="340" width="115.5" height="26"/>
+                </pageControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Dw-O5-tIm">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrw-7M-5Ds">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-xo-DgL">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="414" id="yEb-04-xaN"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="WYr-xo-DgL" firstAttribute="top" secondItem="Rrw-7M-5Ds" secondAttribute="top" id="B4S-tm-dWZ"/>
+                        <constraint firstAttribute="trailing" secondItem="WYr-xo-DgL" secondAttribute="trailing" id="HyN-ST-Wz7"/>
+                        <constraint firstAttribute="bottom" secondItem="WYr-xo-DgL" secondAttribute="bottom" id="RT2-Zi-5mN"/>
+                        <constraint firstItem="WYr-xo-DgL" firstAttribute="height" secondItem="Rrw-7M-5Ds" secondAttribute="height" id="Txf-kg-rVV"/>
+                        <constraint firstItem="WYr-xo-DgL" firstAttribute="leading" secondItem="Rrw-7M-5Ds" secondAttribute="leading" id="jbj-Tq-Gah"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="dTy-oh-GkC"/>
+                        <outletCollection property="gestureRecognizers" destination="dCR-4q-Wvj" appends="YES" id="OEy-vL-1uB"/>
+                    </connections>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Rrw-7M-5Ds" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7pW-sg-mKd"/>
+                <constraint firstItem="5Dw-O5-tIm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="84u-fW-LNV"/>
+                <constraint firstAttribute="trailing" secondItem="5Dw-O5-tIm" secondAttribute="trailing" id="Ccy-6k-Sj5"/>
+                <constraint firstItem="5Dw-O5-tIm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Qqf-yS-Naf"/>
+                <constraint firstAttribute="bottom" secondItem="5Dw-O5-tIm" secondAttribute="bottom" id="S42-sY-wVD"/>
+                <constraint firstAttribute="trailing" secondItem="Rrw-7M-5Ds" secondAttribute="trailing" id="V1L-kt-8tW"/>
+                <constraint firstAttribute="bottom" secondItem="Rrw-7M-5Ds" secondAttribute="bottom" id="VME-th-HVY"/>
+                <constraint firstItem="Rrw-7M-5Ds" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XAk-8b-izB"/>
+                <constraint firstItem="rr4-RD-bwZ" firstAttribute="top" secondItem="B9z-oj-qR1" secondAttribute="bottom" constant="69" id="dkK-k9-tiU"/>
+                <constraint firstAttribute="bottom" secondItem="rr4-RD-bwZ" secondAttribute="bottom" constant="48" id="hAQ-8c-unG">
+                    <variation key="heightClass=regular-widthClass=regular" constant="68"/>
+                </constraint>
+                <constraint firstItem="rr4-RD-bwZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nZy-4c-dR9"/>
+                <constraint firstItem="B9z-oj-qR1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yBr-zS-Q6T"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                    <real key="value" value="4"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                    <real key="value" value="0.25"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                    <size key="value" width="0.0" height="3"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="containerView" destination="5Dw-O5-tIm" id="NCQ-zZ-FkM"/>
+                <outlet property="contentViewWidthConstraint" destination="yEb-04-xaN" id="iIz-dk-aRN"/>
+                <outlet property="pageControl" destination="rr4-RD-bwZ" id="ogY-o1-dBH"/>
+                <outlet property="scrollView" destination="Rrw-7M-5Ds" id="l8W-B8-rPk"/>
+                <outlet property="titleContainerView" destination="B9z-oj-qR1" id="83p-Cz-Att"/>
+                <outlet property="titleLabel" destination="7vT-Ft-iWq" id="szG-tr-UPA"/>
+            </connections>
+            <point key="canvasLocation" x="153.62318840579712" y="81.696428571428569"/>
+        </view>
+        <tapGestureRecognizer id="dCR-4q-Wvj">
+            <connections>
+                <action selector="didTap" destination="iN0-l3-epB" id="NBL-TK-AE2"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <namedColor name="ChloeBeige">
+            <color red="0.94900000095367432" green="0.88599997758865356" blue="0.79199999570846558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
