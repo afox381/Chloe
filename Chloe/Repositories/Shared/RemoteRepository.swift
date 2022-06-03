@@ -36,12 +36,14 @@ public enum RepositoryError: Error {
 }
 
 enum Url {
-    static let base: String = "https://api.com/api"
-    static let characters: String = "characters"
-    static let episodes: String = "episodes"
-    static let quote: String = "quote"
-    static let quotes: String = "quotes"
-    static let review: String = "review"
+    static let base: String = "https://api.yoox.biz"
+    static let productList: String = "Search.API/1.3/CHLOE_GB/search/results.json"
+    static func productDetail(code8: String) -> String { "Item.API/1.0/CHLOE_GB/item/\(code8).json" }
+    
+    static let imageBase: String = "https://cdn.yoox.biz"
+    static func productImage(folderId: String, defaultCode10: String, resolution: String, type: String = "F") -> String {
+        "\(folderId)/\(defaultCode10)_\(resolution)_\(type).jpg"
+    }
 }
 
 enum HttpMethod: String, Codable {
@@ -123,6 +125,7 @@ class RemoteRepository {
                     let decoded = try JSONDecoder().decode(T.self, from: populatedData)
                     DispatchQueue.main.async { subject.value = .success(decoded) }
                 } catch {
+//                    print(String(data: populatedData as! Data, encoding: String.Encoding.utf8))
                     DispatchQueue.main.async { subject.value = .failure(error) }
                 }
             }

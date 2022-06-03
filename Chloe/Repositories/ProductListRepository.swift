@@ -6,9 +6,21 @@ final class ProductListRepository: RemoteRepository {
         super.init(urlSession: urlSession)
     }
 
-    func fetchProductList(category: String) -> AnyPublisher<AsyncState<[ProductListItem]?>, Never>  {
-        // Todo: Category list fetch
+    func fetchProductList(category: String,
+                          itemsPerPage: Int = 15,
+                          gender: String = "D",
+                          page: Int = 0) -> AnyPublisher<AsyncState<ProductList?>, Never>  {
         dataTask(httpMethod: .get,
-                 urlString: "\(Url.base)/\(Url.characters)")
+                 urlString: "\(Url.base)/\(Url.productList)",
+                 queryParams: [
+                    "ave": "prod",
+                    "productsPerPage": "\(itemsPerPage)",
+                    "gender": gender,
+                    "page": "\(page)",
+                    "department": category,
+                    "format": "lite",
+                    "sortRule": "Ranking"
+                 ]
+        )
     }
 }

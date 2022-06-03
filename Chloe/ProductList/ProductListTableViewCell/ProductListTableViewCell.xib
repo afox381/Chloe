@@ -50,22 +50,16 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="MaV-3f-oTf">
-                                <rect key="frame" x="68" y="23" width="342" height="66.5"/>
+                                <rect key="frame" x="68" y="34.5" width="342" height="43"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhy-Eg-PhR">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gks-Rj-Twv">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gks-Rj-Twv">
-                                        <rect key="frame" x="0.0" y="23.5" width="342" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDn-DX-HqR">
-                                        <rect key="frame" x="0.0" y="47" width="342" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="23.5" width="342" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -103,10 +97,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="likeImageView" destination="pWp-BV-dZ7" id="g4m-Lg-6Id"/>
-                <outlet property="nameLabel" destination="uhy-Eg-PhR" id="43b-PC-RA8"/>
-                <outlet property="nicknameLabel" destination="gks-Rj-Twv" id="EaJ-pX-5bS"/>
-                <outlet property="portrayedLabel" destination="uDn-DX-HqR" id="78v-so-Pz7"/>
+                <outlet property="priceLabel" destination="uDn-DX-HqR" id="tYN-0W-GWh"/>
                 <outlet property="thumbnailImageView" destination="eNz-rj-tDZ" id="wrU-VW-mHY"/>
+                <outlet property="titleLabel" destination="gks-Rj-Twv" id="2nC-79-orL"/>
             </connections>
             <point key="canvasLocation" x="-524.63768115942037" y="181.47321428571428"/>
         </tableViewCell>

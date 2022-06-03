@@ -61,7 +61,7 @@ final class CarouselView: UIView {
         updateViews(delta: 0)
         setupPageControl()
         refreshPageControl()
-        setTitleHidden(false, title: viewModel.carouselItems[currentPageIndex].attributedTitle)
+        setTitleHidden(false, title: viewModel.attributedTitle(index: currentPageIndex))
     }
     
     private func setupPageControl() {
@@ -204,6 +204,6 @@ extension CarouselView: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         delegate?.carouselViewDidEndUpdating(self)
         refreshPageControl()
-        setTitleHidden(false, title: viewModel.carouselItems[currentPageIndex].attributedTitle)
+        setTitleHidden(false, title: viewModel.attributedTitle(index: currentPageIndex))
     }
 }

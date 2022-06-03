@@ -6,21 +6,21 @@ protocol CategoryViewModelType {
 
 struct CategoryViewModel: CategoryViewModelType {
     let carouselItems: [CarouselItem] = [
-        CarouselItem(id: "dresses",
-                    imageName: "category_dresses",
-                     attributedTitle: "Dresses".attributed().applyFont(Font.categoryTitle).applyForegroundColor(.black),
+        CarouselItem(id: "drsss",
+                     imageName: "category_dresses",
+                     title: "Dresses",
                      backgroundColour: UIColor(named: "ChloeBeige")!),
-        CarouselItem(id: "shorts",
+        CarouselItem(id: "skrtsnds",
                      imageName: "category_shorts",
-                     attributedTitle: "Skirts and Shorts".attributed().applyFont(Font.categoryTitle).applyForegroundColor(.black),
+                     title: "Skirts and Shorts",
                      backgroundColour: UIColor(named: "ChloeBeige")!),
-        CarouselItem(id: "bags",
+        CarouselItem(id: "nwrrvlsbgs",
                      imageName: "category_bags",
-                     attributedTitle: "Bags".attributed().applyFont(Font.categoryTitle).applyForegroundColor(.black),
+                     title: "Bags",
                      backgroundColour: UIColor(named: "ChloeBeige")!),
-        CarouselItem(id: "sneakers",
+        CarouselItem(id: "shssnkrs",
                      imageName: "category_sneakers",
-                     attributedTitle: "Sneakers".attributed().applyFont(Font.categoryTitle).applyForegroundColor(.black),
+                     title: "Sneakers",
                      backgroundColour: UIColor(named: "ChloeBeige")!),
     ]
 }

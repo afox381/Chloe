@@ -9,16 +9,6 @@ final class MainCoordinator: UINavigationController {
         static let fakeLaunchScreenDuration: TimeInterval = 2
     }
     
-    lazy var productListController: ProductListViewController = {
-        let viewModel = ProductListViewModel(title: "Title",
-                                             category: "Category",
-                                             productListRepository: productListRepository,
-                                             likesRepository: likesRepository)
-        let controller = ProductListViewController(viewModel: viewModel)
-        controller.delegate = self
-        return controller
-    }()
-    
     lazy var categoryController: CategoryViewController = {
         let controller = CategoryViewController(viewModel: CategoryViewModel())
         controller.delegate = self
@@ -37,7 +27,7 @@ final class MainCoordinator: UINavigationController {
         viewControllers = [categoryController]
     }
     
-    func presentFakeLaunchScreen(on view: UIView, displaySeconds: TimeInterval, completion: @escaping () -> Void) {
+    private func presentFakeLaunchScreen(on view: UIView, displaySeconds: TimeInterval, completion: @escaping () -> Void) {
         let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
         let launchViewController = storyboard.instantiateViewController(withIdentifier: "viewController")
         view.add(child: launchViewController.view)
@@ -52,36 +42,43 @@ final class MainCoordinator: UINavigationController {
             })
         }
     }
+    
+    private func presentCategory(title: String, category: String) {
+        let viewModel = ProductListViewModel(title: title,
+                                             category: category,
+                                             productListRepository: productListRepository,
+                                             likesRepository: likesRepository)
+        let controller = ProductListViewController(viewModel: viewModel)
+        controller.delegate = self
+
+        controller.modalPresentationStyle = .overFullScreen
+        categoryController.present(controller, animated: false)
+    }
 }
 
 extension MainCoordinator: CategoryViewControllerDelegate {
-    func didTapCategory(id: String) {
-        productListController.modalPresentationStyle = .overFullScreen
-        categoryController.present(productListController, animated: false)
+    func didTapCategory(title: String, category: String) {
+        presentCategory(title: title, category: category)
     }
 }
 
 extension MainCoordinator: ProductListViewControllerDelegate {
-    func productListViewControllerDidClose() {
+    func productListViewControllerDidClose(productListViewController: ProductListViewController) {
         UIView.animate(withDuration: 0.3, animations: {
-            self.productListController.view.alpha = 0
+            productListViewController.view.alpha = 0
         }, completion: { _ in
-            self.productListController.dismiss(animated: false)
-            self.productListController.view.alpha = 1
+            productListViewController.dismiss(animated: false)
+            productListViewController.view.alpha = 1
             self.categoryController.transitionFromFill()
         })
     }
     
     func productListViewController(_ productListViewController: ProductListViewController,
                                      didSelect productListItem: ProductListItem) {
-        let viewModel = ProductDetailViewModel(id: productListItem.id,
-                                               name: productListItem.name,
-                                               occupation: productListItem.occupation,
-                                               status: productListItem.status,
-                                               image: nil, // TODO: image!
+        let viewModel = ProductDetailViewModel(code8: productListItem.code8,
+                                               image: nil,
                                                productDetailRepository: productDetailRepository,
-                                               likesRepository: likesRepository,
-                                               delegate: self)
+                                               likesRepository: likesRepository)
         let controller = ProductDetailViewController(viewModel: viewModel)
         pushViewController(controller, animated: true)
     }
@@ -89,7 +86,7 @@ extension MainCoordinator: ProductListViewControllerDelegate {
 
 extension MainCoordinator: ProductDetailViewDelegate {
     func productDetailViewDidToggleLike(_ id: String) {
-        productListController.refreshContent()
+//        productListController.refreshContent() // TODO: Toggle Like
     }
 }
 

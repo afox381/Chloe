@@ -1,9 +1,8 @@
 import Foundation
 
 protocol ProductListTableViewCellViewModelType {
-    var name: String { get }
-    var nickname: String { get }
-    var portrayed: String { get }
+    var title: NSAttributedString { get }
+    var price: NSAttributedString { get }
     var imageUrl: URL? { get }
     var isLiked: Bool { get }
 }
@@ -12,13 +11,23 @@ public struct ProductListTableViewCellViewModel: ProductListTableViewCellViewMod
     let productItem: ProductListItem
     let isLiked: Bool
     
-    var name: String { productItem.name }
-    var nickname: String { productItem.nickname }
-    var portrayed: String { productItem.portrayed }
-    var imageUrl: URL? { URL(string: productItem.img) }
-    
     init(with productItem: ProductListItem, isLiked: Bool) {
         self.productItem = productItem
         self.isLiked = isLiked
+    }
+    
+    var title: NSAttributedString {
+        productItem.title.attributed()
+    }
+    
+    var price: NSAttributedString {
+        String(productItem.fullPrice).attributed() // TODO: format price
+    }
+    
+    var imageUrl: URL? {
+        let urlString = Url.productImage(folderId: String(productItem.defaultCode10.prefix(2)),
+                                         defaultCode10: productItem.defaultCode10,
+                                         resolution: "8")
+        return URL(string: urlString)
     }
 }

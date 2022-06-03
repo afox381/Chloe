@@ -13,7 +13,7 @@ class GradientView: UIView {
 }
 
 protocol CategoryViewControllerDelegate: AnyObject {
-    func didTapCategory(id: String)
+    func didTapCategory(title: String, category: String)
 }
 
 final class CategoryViewController: UIViewController {
@@ -62,7 +62,8 @@ extension CategoryViewController: CarouselViewDelegate {
     
     func carouselViewDidTap(_ carouselView: CarouselView, currentTile: Int) {
         carouselView.transitionTileToFill {
-            self.delegate?.didTapCategory(id: self.viewModel.carouselItems[currentTile].id)
+            self.delegate?.didTapCategory(title: self.viewModel.carouselItems[currentTile].title,
+                                          category: self.viewModel.carouselItems[currentTile].id)
         }
     }
 }

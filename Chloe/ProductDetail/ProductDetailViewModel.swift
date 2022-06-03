@@ -6,10 +6,11 @@ protocol ProductDetailViewDelegate: AnyObject {
 }
 
 protocol ProductDetailViewModelType {
-    var name: String { get }
-    var occupation: [String] { get }
-    var status: String { get }
     var image: UIImage? { get }
+    var name: NSAttributedString { get }
+    var categoryMacro: NSAttributedString { get }
+    var categoryMicro: NSAttributedString { get }
+    var price: NSAttributedString { get }
     var isLiked: Bool { get }
     
     func fetchProductDetails() -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never>
@@ -17,25 +18,40 @@ protocol ProductDetailViewModelType {
 }
 
 struct ProductDetailViewModel: ProductDetailViewModelType {
-    let id: String
-    let name: String
-    let occupation: [String]
-    let status: String
+    let code8: String
     let image: UIImage?
+    var name: NSAttributedString {
+        "Name".attributed()
+    }
+    
+    var categoryMacro: NSAttributedString {
+        "Macro".attributed()
+    }
+    
+    var categoryMicro: NSAttributedString {
+        "Micro".attributed()
+    }
+    
+    var price: NSAttributedString {
+        "Price".attributed()
+    }
+    
+    // TODO: Any other useful info?
+    
     let productDetailRepository: ProductDetailRepository
     let likesRepository: LikesRepository
     weak var delegate: ProductDetailViewDelegate?
 
     var isLiked: Bool {
-        likesRepository.isLiked(id)
+        likesRepository.isLiked(code8)
     }
 
     func fetchProductDetails() -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never> {
-        productDetailRepository.fetchProductDetail(productId: id)
+        productDetailRepository.fetchProductDetail(code8: code8)
     }
     
     func toggleLike() {
-        likesRepository.toggleLike(id)
-        delegate?.productDetailViewDidToggleLike(id)
+        likesRepository.toggleLike(code8)
+        delegate?.productDetailViewDidToggleLike(code8)
     }
 }

@@ -23,9 +23,6 @@ final class ProductDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.name
-        occupationLabel.text = "Occupation(s): \(viewModel.occupation.joined(separator: ", "))"
-        statusLabel.text = "Status: \(viewModel.status)"
         imageView.image = viewModel.image
         imageView.applySurroundingShadow()
         
@@ -72,7 +69,7 @@ final class ProductDetailViewController: UIViewController {
     }
     
     private func presentFetchError(_ error: RepositoryError?) {
-        let alert = UIAlertController(title: "Fetch Failed", message: "Character details failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Fetch Failed", message: "Product details failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in self.fetchProductDetails() }))
         present(alert, animated: true, completion: nil)

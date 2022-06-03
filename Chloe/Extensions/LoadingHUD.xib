@@ -18,7 +18,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vC5-M2-Vgb" userLabel="View - container - shadows">
-                    <rect key="frame" x="153.5" y="411" width="68.5" height="65.5"/>
+                    <rect key="frame" x="153.5" y="301" width="68.5" height="65.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bWr-Rg-pwx">
                             <rect key="frame" x="0.0" y="0.0" width="68.5" height="65.5"/>
@@ -39,7 +39,7 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="bWr-Rg-pwx" firstAttribute="top" secondItem="vC5-M2-Vgb" secondAttribute="top" id="0AD-gJ-hy8"/>
                         <constraint firstAttribute="trailing" secondItem="bWr-Rg-pwx" secondAttribute="trailing" id="0Fc-qM-ir6"/>
@@ -52,7 +52,7 @@
             <constraints>
                 <constraint firstItem="3BY-Hb-Qdu" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="F4z-05-lA5"/>
                 <constraint firstItem="3BY-Hb-Qdu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IPM-dp-APS"/>
-                <constraint firstItem="vC5-M2-Vgb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="1.33" id="JZa-4Y-bD9"/>
+                <constraint firstItem="vC5-M2-Vgb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="JZa-4Y-bD9"/>
                 <constraint firstItem="3BY-Hb-Qdu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XZu-tn-Bae"/>
                 <constraint firstItem="3BY-Hb-Qdu" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="ZVu-CB-oc8"/>
                 <constraint firstItem="vC5-M2-Vgb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cna-DF-Gzy"/>

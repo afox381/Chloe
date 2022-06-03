@@ -4,11 +4,14 @@ import Combine
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListViewController(_ productListViewController: ProductListViewController,
                                    didSelect productItem: ProductListItem)
-    func productListViewControllerDidClose()
+    func productListViewControllerDidClose(productListViewController: ProductListViewController)
 }
 
 final class ProductListViewController: UIViewController {
-    @IBOutlet fileprivate var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadFailedStackView: UIStackView!
+    @IBOutlet weak var loadFailedLabel: UILabel!
+    @IBOutlet weak var loadFailedRetryButton: UIButton!
     
     enum Strings {
         static let productItemCellID: String = "productItemCellID"
@@ -16,7 +19,7 @@ final class ProductListViewController: UIViewController {
     
     private let viewModel: ProductListViewModelType
     private var cancellables: Set<AnyCancellable> = []
-    private var productList: [ProductListItem]?
+    private var productListItems: [ProductListItem]?
     
     weak var delegate: ProductListViewControllerDelegate?
     
@@ -35,7 +38,7 @@ final class ProductListViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        fetchCharacters()
+        fetchProductList()
     }
     
     private func setupDynamicUI() {
@@ -51,7 +54,7 @@ final class ProductListViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: Strings.productItemCellID)
     }
     
-    private func fetchCharacters() {
+    private func fetchProductList() {
         viewModel.fetchProductList()
             .receive(on: RunLoop.main)
             .sink { [weak self] state in
@@ -59,16 +62,21 @@ final class ProductListViewController: UIViewController {
                 
                 switch state {
                 case .loading:
-                    print("Show loading screen")
-                case .success(let characterList):
-                    guard let characterList = characterList else {
-                        self.presentFetchError(.unexpectedResponse)
-                        return
+                    self.view.showLoadingHUD(type: .loading, withFader: false)
+                case .success(let productList):
+                    self.view.hideLoadingHUD() {
+                        guard let productList = productList else {
+                            self.presentFetchError(.unexpectedResponse)
+                            return
+                        }
+                        self.productListItems = productList.resultsLite.items
+                        self.tableView.reloadData()
+                        self.tableView.alpha = 1 // TODO: Animation
                     }
-                    self.productList = characterList
-                    self.tableView.reloadData()
                 case .failure(let error):
-                    self.presentFetchError(error as? RepositoryError)
+                    self.view.hideLoadingHUD() {
+                        self.setLoadFailureHidden(false)
+                    }
                 case .inactive:
                     break
                 }
@@ -76,34 +84,51 @@ final class ProductListViewController: UIViewController {
             .store(in: &cancellables)
     }
     
+    private func setLoadFailureHidden(_ isHidden: Bool, completion: (() -> Void)? = nil) {
+        loadFailedLabel.attributedText = viewModel.loadFailureTitle
+        loadFailedRetryButton.setAttributedTitle(viewModel.loadFailureRetry, for: .normal)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.loadFailedStackView.alpha = isHidden ? 0 : 1
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    
     private func presentFetchError(_ error: RepositoryError?) {
-        let alert = UIAlertController(title: "Fetch Failed", message: "Characters failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Fetch Failed", message: "Products failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in self.fetchCharacters() }))
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in self.fetchProductList() }))
         present(alert, animated: true, completion: nil)
     }
     
     @IBAction private func didTapClose() {
-        delegate?.productListViewControllerDidClose()
+        delegate?.productListViewControllerDidClose(productListViewController: self)
+    }
+    
+    @IBAction private func didTapRetry() {
+        setLoadFailureHidden(true) {
+            self.fetchProductList()
+        }
     }
 }
 
 extension ProductListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        productList?.count ?? 0
+        productListItems?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let productList = productList,
-              indexPath.item < productList.count,
+        guard let productListItems = productListItems,
+              indexPath.item < productListItems.count,
               let cell = tableView.dequeueReusableCell(withIdentifier: Strings.productItemCellID,
                                                        for: indexPath) as? ProductListTableViewCell else {
             fatalError("Could not dequeue cell of type: \(ProductListTableViewCell.self) with identifier: \(Strings.productItemCellID)")
         }
         
-        let productListItem = productList[indexPath.item]
+        let productListItem = productListItems[indexPath.item]
         cell.update(with: ProductListTableViewCellViewModel(with: productListItem,
-                                                            isLiked: viewModel.isLiked(productId: productListItem.id)))
+                                                            isLiked: viewModel.isLiked(productId: productListItem.code8)))
         return cell
     }
 }
@@ -111,7 +136,7 @@ extension ProductListViewController: UITableViewDataSource {
 extension ProductListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProductListTableViewCell,
-              let productListItem = productList?[indexPath.item] else {
+              let productListItem = productListItems?[indexPath.item] else {
             return
         }
         

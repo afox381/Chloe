@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 protocol ProductDetailRepositoryType {
-    func fetchProductDetail(productId: String) -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never>
+    func fetchProductDetail(code8: String) -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never>
 }
 
 final class ProductDetailRepository: RemoteRepository, ProductDetailRepositoryType {
@@ -10,9 +10,9 @@ final class ProductDetailRepository: RemoteRepository, ProductDetailRepositoryTy
         super.init(urlSession: urlSession)
     }
 
-    func fetchProductDetail(productId: String) -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never> {
+    func fetchProductDetail(code8: String) -> AnyPublisher<AsyncState<[ProductDetailItem]?>, Never> {
         dataTask(httpMethod: .get,
-                 urlString: "\(Url.base)/\(Url.quote)",
+                 urlString: "\(Url.base)/\(Url.productDetail(code8: code8))",
                  queryParams: [
                     "author": "something? Nothing?"//name.replacingOccurrences(of: " ", with: "+")
                  ])

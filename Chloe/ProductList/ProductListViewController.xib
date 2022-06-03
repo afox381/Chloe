@@ -5,12 +5,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductListViewController">
             <connections>
+                <outlet property="loadFailedLabel" destination="wca-o1-vuL" id="knA-zo-LbW"/>
+                <outlet property="loadFailedRetryButton" destination="Obs-Z8-Jox" id="ien-0f-Rg1"/>
+                <outlet property="loadFailedStackView" destination="aYn-V4-yf6" id="6nD-9d-fw8"/>
                 <outlet property="tableView" destination="rQP-A4-Z7M" id="LL6-DD-B5M"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u1T-nX-MGg"/>
             </connections>
@@ -20,39 +22,65 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-V4-yf6">
+                    <rect key="frame" x="180" y="413" width="54" height="70.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wca-o1-vuL">
+                            <rect key="frame" x="0.0" y="0.0" width="54" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Obs-Z8-Jox">
+                            <rect key="frame" x="0.0" y="36.5" width="54" height="34"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapRetry" destination="-1" eventType="touchUpInside" id="AXy-Id-2bG"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
                 <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rQP-A4-Z7M">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="0.0" y="89" width="414" height="773"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="DzB-zR-Sva"/>
                         <outlet property="delegate" destination="-1" id="arm-D9-dDL"/>
                     </connections>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKh-nr-Ugf">
-                    <rect key="frame" x="347" y="44" width="67" height="31"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKh-nr-Ugf">
+                    <rect key="frame" x="361" y="44" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Xpt-NS-MTc"/>
+                        <constraint firstAttribute="width" constant="45" id="hUH-qy-ANi"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                    <state key="normal" image="xmark" catalog="system"/>
                     <connections>
                         <action selector="didTapClose" destination="-1" eventType="touchUpInside" id="olw-VB-cvc"/>
                     </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="rQP-A4-Z7M" firstAttribute="top" secondItem="RKh-nr-Ugf" secondAttribute="bottom" id="Gdy-ZB-oQO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rQP-A4-Z7M" secondAttribute="trailing" id="Key-8w-3ls"/>
+                <constraint firstItem="aYn-V4-yf6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MQW-Lt-CG7"/>
                 <constraint firstItem="rQP-A4-Z7M" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Vw2-uP-Wz8"/>
-                <constraint firstItem="rQP-A4-Z7M" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Woc-fn-abk"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RKh-nr-Ugf" secondAttribute="trailing" id="n2k-Ll-Dhf"/>
+                <constraint firstItem="aYn-V4-yf6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hyS-yS-0eK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RKh-nr-Ugf" secondAttribute="trailing" constant="8" id="n2k-Ll-Dhf"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rQP-A4-Z7M" secondAttribute="bottom" id="vCe-Pc-Gxp"/>
                 <constraint firstItem="RKh-nr-Ugf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wHc-9Z-moK"/>
             </constraints>
-            <point key="canvasLocation" x="-330" y="53"/>
+            <point key="canvasLocation" x="-330.43478260869568" y="52.901785714285715"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

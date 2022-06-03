@@ -1,16 +1,9 @@
 import UIKit
 
 enum Font {
-    static var categoryTitle: UIFont {
-        switch UIDevice.current.modelType {
-        case .iPhone5:
-            return Futura2.regular(ofSize: 10)
-        case .iPhone678, .iPhoneX:
-            return Futura2.regular(ofSize: 21)
-        default:
-            return Futura2.regular(ofSize: 32)
-        }
-    }
+    static let categoryTitle: UIFont = Futura2.regular(ofSize: 21)
+    static let loadFailureTitle: UIFont = Futura2.regular(ofSize: 32)
+    static let loadFailureRetry: UIFont = Futura2.regular(ofSize: 20)
 
     static private let sizeDeviceModifier: CGFloat = UIDevice.isIPad ? 1.2 : 1
 
