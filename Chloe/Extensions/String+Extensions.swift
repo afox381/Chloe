@@ -1,10 +1,3 @@
-//
-//  String+Extensions.swift
-//  ISP
-//
-//  Created by Phan Tran on 30/04/2020.
-//
-
 import Foundation
 
 extension String {

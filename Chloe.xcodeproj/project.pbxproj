@@ -11,7 +11,6 @@
 		6F2FC6A12829750F0043BD74 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6A02829750F0043BD74 /* SceneDelegate.swift */; };
 		6F2FC6A8282975110043BD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F2FC6A7282975110043BD74 /* Assets.xcassets */; };
 		6F2FC6AB282975110043BD74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F2FC6A9282975110043BD74 /* LaunchScreen.storyboard */; };
-		6F2FC6B7282976620043BD74 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6B4282976610043BD74 /* ParameterEncoding.swift */; };
 		6F2FC6B8282976620043BD74 /* AsyncFetchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6B5282976620043BD74 /* AsyncFetchState.swift */; };
 		6F2FC6B9282976620043BD74 /* RemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6B6282976620043BD74 /* RemoteRepository.swift */; };
 		6F2FC6C0282977F30043BD74 /* UIView+Inspectables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FC6BB282977F30043BD74 /* UIView+Inspectables.swift */; };
@@ -37,6 +36,8 @@
 		6F38F14D284B78D20016FED2 /* ProductListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F38F14C284B78D20016FED2 /* ProductListCollectionViewCell.swift */; };
 		6F38F14F284B794F0016FED2 /* ProductListCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F38F14E284B794F0016FED2 /* ProductListCollectionViewCellViewModel.swift */; };
 		6F38F151284B799E0016FED2 /* ProductListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F38F150284B799E0016FED2 /* ProductListCollectionViewCell.xib */; };
+		6F38F155284B93D70016FED2 /* FuturaNo2DBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F38F154284B93D70016FED2 /* FuturaNo2DBold.ttf */; };
+		6F38F157284B963D0016FED2 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F38F156284B963D0016FED2 /* Int+Extensions.swift */; };
 		6F9EDC0C2849525700114101 /* CarouselView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F9EDC072849525700114101 /* CarouselView.xib */; };
 		6F9EDC0D2849525700114101 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9EDC082849525700114101 /* CarouselView.swift */; };
 		6F9EDC0E2849525700114101 /* CarouselTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9EDC092849525700114101 /* CarouselTileView.swift */; };
@@ -88,7 +89,6 @@
 		6F2FC6A7282975110043BD74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F2FC6AA282975110043BD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F2FC6AC282975110043BD74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6F2FC6B4282976610043BD74 /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		6F2FC6B5282976620043BD74 /* AsyncFetchState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncFetchState.swift; sourceTree = "<group>"; };
 		6F2FC6B6282976620043BD74 /* RemoteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteRepository.swift; sourceTree = "<group>"; };
 		6F2FC6BB282977F30043BD74 /* UIView+Inspectables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Inspectables.swift"; sourceTree = "<group>"; };
@@ -114,6 +114,8 @@
 		6F38F14C284B78D20016FED2 /* ProductListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCollectionViewCell.swift; sourceTree = "<group>"; };
 		6F38F14E284B794F0016FED2 /* ProductListCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		6F38F150284B799E0016FED2 /* ProductListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductListCollectionViewCell.xib; sourceTree = "<group>"; };
+		6F38F154284B93D70016FED2 /* FuturaNo2DBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaNo2DBold.ttf; sourceTree = "<group>"; };
+		6F38F156284B963D0016FED2 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		6F9EDC072849525700114101 /* CarouselView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselView.xib; sourceTree = "<group>"; };
 		6F9EDC082849525700114101 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		6F9EDC092849525700114101 /* CarouselTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselTileView.swift; sourceTree = "<group>"; };
@@ -223,7 +225,6 @@
 				6F9EDC062849525700114101 /* Carousel View */,
 				6F2FC6B5282976620043BD74 /* AsyncFetchState.swift */,
 				6FA2718F2849E01D00B0ECB3 /* Font.swift */,
-				6F2FC6B4282976610043BD74 /* ParameterEncoding.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -244,6 +245,7 @@
 				6F2FC6BF282977F30043BD74 /* UIView+NibLoading.swift */,
 				6FBDF6842847CF2400A817A9 /* UIView+LoadingHUD.swift */,
 				6FBDF6862847CF9700A817A9 /* LoadingHUD.xib */,
+				6F38F156284B963D0016FED2 /* Int+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				6FA2718C2849DFF100B0ECB3 /* FuturaNo2DEE.ttf */,
+				6F38F154284B93D70016FED2 /* FuturaNo2DBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				6F2FC6D228297C460043BD74 /* ProductListViewController.xib in Resources */,
 				6F9EDC0C2849525700114101 /* CarouselView.xib in Resources */,
 				6F9EDC0F2849525700114101 /* CarouselTileView.xib in Resources */,
+				6F38F155284B93D70016FED2 /* FuturaNo2DBold.ttf in Resources */,
 				6FA2718D2849DFF100B0ECB3 /* FuturaNo2DEE.ttf in Resources */,
 				6F2FC6AB282975110043BD74 /* LaunchScreen.storyboard in Resources */,
 				6F2FC6A8282975110043BD74 /* Assets.xcassets in Resources */,
@@ -557,9 +561,9 @@
 				6F9EDC1B2849D64700114101 /* String+Extensions.swift in Sources */,
 				6F2FC6D328297C460043BD74 /* ProductListViewController.swift in Sources */,
 				6F9EDC202849D70600114101 /* NSAttributedString+Convenience.swift in Sources */,
+				6F38F157284B963D0016FED2 /* Int+Extensions.swift in Sources */,
 				6F2FC6E2282AF4F10043BD74 /* ProductDetailViewController.swift in Sources */,
 				6F2FC6F4282AFC2F0043BD74 /* ProductDetailItemModel.swift in Sources */,
-				6F2FC6B7282976620043BD74 /* ParameterEncoding.swift in Sources */,
 				6F2FC6CE282979490043BD74 /* ProductListItemModel.swift in Sources */,
 				6F2FC6E3282AF5060043BD74 /* ProductDetailViewModel.swift in Sources */,
 				6F2FC6C0282977F30043BD74 /* UIView+Inspectables.swift in Sources */,

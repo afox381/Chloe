@@ -1,10 +1,3 @@
-//
-//  NSAttributedString+Size.swift
-//  DeepDiff
-//
-//  Created by Christopher Batin on 17/03/2020.
-//
-
 import UIKit
 
 public extension NSAttributedString {

@@ -7,7 +7,7 @@ final class ProductListRepository: RemoteRepository {
     }
 
     func fetchProductList(category: String,
-                          itemsPerPage: Int = 15,
+                          itemsPerPage: Int = 16,
                           gender: String = "D",
                           page: Int = 0) -> AnyPublisher<AsyncState<ProductList?>, Never>  {
         dataTask(httpMethod: .get,

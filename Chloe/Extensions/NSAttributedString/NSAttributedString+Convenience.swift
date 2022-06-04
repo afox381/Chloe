@@ -1,9 +1,7 @@
 import UIKit
 
 extension NSAttributedString {
-
     public var range: NSRange { .init(location: 0, length: length) }
-
     public var mutable: NSMutableAttributedString { .init(attributedString: self) }
 }
 
@@ -121,7 +119,6 @@ extension NSAttributedString {
 }
 
 extension Array where Element == NSAttributedString {
-
     func joined(separator: NSAttributedString? = nil) -> NSAttributedString {
         var result = NSAttributedString()
         for (index, value) in self.enumerated() {
@@ -134,5 +131,4 @@ extension Array where Element == NSAttributedString {
 
         return result
     }
-
 }

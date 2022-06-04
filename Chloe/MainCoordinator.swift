@@ -70,7 +70,6 @@ final class MainCoordinator: UINavigationController {
         }
     }
     
-    
     func productListViewControllerDidClose(productListViewController: ProductListViewController) {
         UIView.animate(withDuration: 0.3, animations: {
             self.productListNavigationController.view.alpha = 0

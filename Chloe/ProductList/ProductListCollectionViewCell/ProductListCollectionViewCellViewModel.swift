@@ -22,10 +22,14 @@ public struct ProductListCollectionViewCellViewModel: ProductListCollectionViewC
     
     var title: NSAttributedString {
         productListItem.title.attributed()
+            .applyFont(Font.listTitle)
+            .applyForegroundColor(.black)
     }
     
     var price: NSAttributedString {
-        String(productListItem.fullPrice).attributed() // TODO: format price
+        productListItem.fullPrice.formattedPrice().attributed()
+            .applyFont(Font.listPrice)
+            .applyForegroundColor(.black)
     }
     
     var imageUrl: URL? {
