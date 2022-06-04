@@ -72,7 +72,7 @@ final class ProductListViewController: UIViewController {
                         self.tableView.reloadData()
                         self.tableView.alpha = 1 // TODO: Animation
                     }
-                case .failure(let error):
+                case .failure:
                     self.view.hideLoadingHUD() {
                         self.setLoadFailureHidden(false)
                     }

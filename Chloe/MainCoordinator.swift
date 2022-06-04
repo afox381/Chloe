@@ -76,6 +76,8 @@ final class MainCoordinator: UINavigationController {
         }, completion: { _ in
             self.categoryController.transitionFromFill()
             self.productListNavigationController.dismiss(animated: false)
+            self.productListNavigationController.viewControllers = []
+            self.productListNavigationController.view.alpha = 1
         })
     }
 }
