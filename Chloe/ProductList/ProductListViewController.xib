@@ -10,10 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductListViewController">
             <connections>
+                <outlet property="collectionView" destination="iAb-WE-dhH" id="Dc2-wW-ksE"/>
                 <outlet property="loadFailedLabel" destination="wca-o1-vuL" id="knA-zo-LbW"/>
                 <outlet property="loadFailedRetryButton" destination="Obs-Z8-Jox" id="ien-0f-Rg1"/>
                 <outlet property="loadFailedStackView" destination="aYn-V4-yf6" id="6nD-9d-fw8"/>
-                <outlet property="tableView" destination="rQP-A4-Z7M" id="LL6-DD-B5M"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u1T-nX-MGg"/>
             </connections>
         </placeholder>
@@ -43,24 +43,30 @@
                         </button>
                     </subviews>
                 </stackView>
-                <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rQP-A4-Z7M">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAb-WE-dhH">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="6y3-z2-4Ea">
+                        <size key="itemSize" width="180" height="180"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="8" minY="0.0" maxX="8" maxY="8"/>
+                    </collectionViewFlowLayout>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="DzB-zR-Sva"/>
-                        <outlet property="delegate" destination="-1" id="arm-D9-dDL"/>
+                        <outlet property="dataSource" destination="-1" id="0I8-VD-Lp1"/>
+                        <outlet property="delegate" destination="-1" id="VtC-H9-nAU"/>
                     </connections>
-                </tableView>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rQP-A4-Z7M" secondAttribute="trailing" id="Key-8w-3ls"/>
+                <constraint firstItem="iAb-WE-dhH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1N1-Sv-AnA"/>
+                <constraint firstItem="iAb-WE-dhH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6o7-F8-Ipk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="iAb-WE-dhH" secondAttribute="trailing" id="7xE-ed-wXH"/>
                 <constraint firstItem="aYn-V4-yf6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MQW-Lt-CG7"/>
-                <constraint firstItem="rQP-A4-Z7M" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Vw2-uP-Wz8"/>
-                <constraint firstItem="rQP-A4-Z7M" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fRH-04-mrV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="iAb-WE-dhH" secondAttribute="bottom" id="QpP-Ji-CIq"/>
                 <constraint firstItem="aYn-V4-yf6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hyS-yS-0eK"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rQP-A4-Z7M" secondAttribute="bottom" id="vCe-Pc-Gxp"/>
             </constraints>
             <point key="canvasLocation" x="-330.43478260869568" y="52.901785714285715"/>
         </view>

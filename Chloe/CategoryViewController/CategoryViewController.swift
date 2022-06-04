@@ -17,10 +17,17 @@ protocol CategoryViewControllerDelegate: AnyObject {
 }
 
 final class CategoryViewController: UIViewController {
+    @IBOutlet weak var titleContainerView: UIView!
+    
+    private lazy var carouselView: CarouselView = {
+        let carouselView = CarouselView.loadFromNib()
+        carouselView.delegate = self
+        carouselView.viewModel = CarouselViewModel(carouselItems: viewModel.carouselItems)
+        return carouselView
+    }()
+    
     let viewModel: CategoryViewModelType
     weak var delegate: CategoryViewControllerDelegate?
-    
-    private var carouselView: CarouselView?
     
     init(viewModel: CategoryViewModelType) {
         self.viewModel = viewModel
@@ -35,18 +42,15 @@ final class CategoryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "ChloeGrey")
         navigationController?.setNavigationBarHidden(true, animated: false)
+        view.add(child: carouselView)
     }
     
     func start() {
-        let carouselView = CarouselView.loadFromNib()
-        carouselView.delegate = self
-        carouselView.viewModel = CarouselViewModel(carouselItems: viewModel.carouselItems)
-        view.add(child: carouselView)
-        self.carouselView = carouselView
+        // TODO: Do some nice animations on start
     }
     
     func transitionFromFill() {
-        carouselView?.transitionTileFromFill {
+        carouselView.transitionTileFromFill {
         }
     }
 }

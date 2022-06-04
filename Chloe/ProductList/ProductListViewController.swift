@@ -7,18 +7,25 @@ protocol ProductListViewControllerDelegate: AnyObject {
 }
 
 final class ProductListViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadFailedStackView: UIStackView!
     @IBOutlet weak var loadFailedLabel: UILabel!
     @IBOutlet weak var loadFailedRetryButton: UIButton!
     
-    enum Strings {
+    enum Constants {
         static let productItemCellID: String = "productItemCellID"
+        static let itemsFromEndToStartPaging: Int = 10
+        static let headerHeight: CGFloat = 43
+        static let cellSpacing: CGFloat = 8
+        static let cellWidthHeighRatio: CGFloat = 1.67
     }
     
     private let viewModel: ProductListViewModelType
     private var cancellables: Set<AnyCancellable> = []
-    private var productListItems: [ProductListItem]?
+    private var productListItems: [ProductListItem] = []
+    private var currentProductListPage: Int = 0
+    private var totalResults: Int = 0
+    private var isFetching: Bool = false
     
     weak var delegate: ProductListViewControllerDelegate?
     
@@ -36,45 +43,56 @@ final class ProductListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTableView()
-        fetchProductList()
+        setupCollectionView()
+        fetchProductList(page: currentProductListPage, withLoadingHUD: true)
     }
     
     private func setupDynamicUI() {
         title = viewModel.title
     }
     
-    public func refreshContent() {
-        tableView.reloadData()
+    private func setupCollectionView() {
+        let cellNib = UINib(nibName: String(describing: ProductListCollectionViewCell.self), bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: Constants.productItemCellID)
+        collectionView.alpha = 0
     }
     
-    private func setupTableView() {
-        let cellNib = UINib(nibName: String(describing: ProductListTableViewCell.self), bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: Strings.productItemCellID)
-    }
-    
-    private func fetchProductList() {
-        viewModel.fetchProductList()
+    private func fetchProductList(page: Int, withLoadingHUD: Bool) {
+        guard !isFetching else { return }
+        isFetching = true
+
+        viewModel.fetchProductList(page: page)
             .receive(on: RunLoop.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 
                 switch state {
                 case .loading:
-                    self.view.showLoadingHUD(type: .loading, withFader: false)
+                    if page == 0 {
+                        self.view.showLoadingHUD(type: .loading, withFader: false)
+                    }
                 case .success(let productList):
+                    self.isFetching = false
                     self.view.hideLoadingHUD() {
                         guard let productList = productList else {
                             self.presentFetchError(.unexpectedResponse)
                             return
                         }
-                        self.productListItems = productList.resultsLite.items
-                        self.tableView.reloadData()
-                        self.tableView.alpha = 1 // TODO: Animation
+                        self.totalResults = productList.resultsLite.totalResults
+                        self.productListItems.append(contentsOf: productList.resultsLite.items)
+                        self.collectionView.reloadData()
+                        if self.collectionView.alpha == 0 {
+                            UIView.animate(withDuration: 0.3) {
+                                self.collectionView.alpha = 1
+                            }
+                        }
                     }
                 case .failure:
-                    self.view.hideLoadingHUD() {
-                        self.setLoadFailureHidden(false)
+                    self.isFetching = false
+                    if page == 0, self.productListItems.count == 0 {
+                        self.view.hideLoadingHUD() {
+                            self.setLoadFailureHidden(false)
+                        }
                     }
                 case .inactive:
                     break
@@ -97,45 +115,59 @@ final class ProductListViewController: UIViewController {
     private func presentFetchError(_ error: RepositoryError?) {
         let alert = UIAlertController(title: "Fetch Failed", message: "Products failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in self.fetchProductList() }))
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in
+            self.fetchProductList(page: self.currentProductListPage, withLoadingHUD: true)
+        }))
         present(alert, animated: true, completion: nil)
     }
     
     @IBAction private func didTapRetry() {
         setLoadFailureHidden(true) {
-            self.fetchProductList()
+            self.fetchProductList(page: self.currentProductListPage, withLoadingHUD: true)
         }
     }
 }
 
-extension ProductListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        productListItems?.count ?? 0
+extension ProductListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        productListItems.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let productListItems = productListItems,
-              indexPath.item < productListItems.count,
-              let cell = tableView.dequeueReusableCell(withIdentifier: Strings.productItemCellID,
-                                                       for: indexPath) as? ProductListTableViewCell else {
-            fatalError("Could not dequeue cell of type: \(ProductListTableViewCell.self) with identifier: \(Strings.productItemCellID)")
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: ProductListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.productItemCellID, for: indexPath) as! ProductListCollectionViewCell
         let productListItem = productListItems[indexPath.item]
-        cell.update(with: ProductListTableViewCellViewModel(with: productListItem,
+        cell.update(with: ProductListCollectionViewCellViewModel(with: productListItem,
                                                             isLiked: viewModel.isLiked(productId: productListItem.code8)))
         return cell
     }
 }
 
-extension ProductListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProductListTableViewCell,
-              let productListItem = productListItems?[indexPath.item] else {
-            return
-        }
-        
+extension ProductListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productListItem = productListItems[indexPath.row]
         delegate?.productListViewController(self, didSelect: productListItem)
-        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item > productListItems.count - Constants.itemsFromEndToStartPaging,
+            productListItems.count < totalResults,
+           !isFetching {
+            currentProductListPage += 1
+            fetchProductList(page: currentProductListPage, withLoadingHUD: false)
+        }
+    }
+}
+
+extension ProductListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: Constants.headerHeight)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let sectionInset = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
+        let screenWidth = UIScreen.main.bounds.width - (sectionInset.left + sectionInset.right + Constants.cellSpacing)
+        let width = floor(screenWidth / 2)
+        let height = width * Constants.cellWidthHeighRatio
+        return CGSize(width: width, height: height)
     }
 }

@@ -6,7 +6,7 @@ protocol ProductListViewModelType {
     var loadFailureTitle: NSAttributedString { get }
     var loadFailureRetry: NSAttributedString { get }
     
-    func fetchProductList() -> AnyPublisher<AsyncState<ProductList?>, Never>
+    func fetchProductList(page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never>
     func isLiked(productId: String) -> Bool
 }
 
@@ -16,8 +16,8 @@ struct ProductListViewModel: ProductListViewModelType {
     let productListRepository: ProductListRepository
     let likesRepository: LikesRepository
     
-    func fetchProductList() -> AnyPublisher<AsyncState<ProductList?>, Never> {
-        productListRepository.fetchProductList(category: category)
+    func fetchProductList(page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never> {
+        productListRepository.fetchProductList(category: category, page: page)
     }
     
     func isLiked(productId: String) -> Bool {

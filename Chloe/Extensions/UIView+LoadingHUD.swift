@@ -19,7 +19,7 @@ protocol HUDType {
 
 extension UIView: HUDType {
     enum Metrics {
-        static let minimumShowTime: TimeInterval = 2.0
+        static let minimumShowTime: TimeInterval = 0.8
     }
     static private var hud = LoadingHUD.loadFromNib()
     static private var showTime: TimeInterval?

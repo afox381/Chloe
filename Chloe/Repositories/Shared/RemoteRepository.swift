@@ -42,7 +42,7 @@ enum Url {
     
     static let imageBase: String = "https://cdn.yoox.biz"
     static func productImage(folderId: String, defaultCode10: String, resolution: String, type: String = "F") -> String {
-        "\(folderId)/\(defaultCode10)_\(resolution)_\(type).jpg"
+        "\(imageBase)/\(folderId)/\(defaultCode10)_\(resolution)_\(type).jpg"
     }
 }
 

@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 final class MainCoordinator: UINavigationController {
     private let productListRepository = ProductListRepository()
@@ -91,12 +92,15 @@ extension MainCoordinator: CategoryViewControllerDelegate {
 extension MainCoordinator: ProductListViewControllerDelegate {
     func productListViewController(_ productListViewController: ProductListViewController,
                                      didSelect productListItem: ProductListItem) {
-        let viewModel = ProductDetailViewModel(code8: productListItem.code8,
-                                               image: nil,
-                                               productDetailRepository: productDetailRepository,
-                                               likesRepository: likesRepository)
-        let controller = ProductDetailViewController(viewModel: viewModel)
-        productListNavigationController.pushViewController(controller, animated: true)
+        let hostingController = UIHostingController(rootView: Text("Hello, World!"))
+        productListNavigationController.pushViewController(hostingController, animated: true)
+        
+//        let viewModel = ProductDetailViewModel(code8: productListItem.code8,
+//                                               image: nil,
+//                                               productDetailRepository: productDetailRepository,
+//                                               likesRepository: likesRepository)
+//        let controller = ProductDetailViewController(viewModel: viewModel)
+//        productListNavigationController.pushViewController(controller, animated: true)
     }
 }
 
