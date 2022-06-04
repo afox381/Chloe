@@ -85,7 +85,9 @@ class RemoteRepository {
             return subject.eraseToAnyPublisher()
         }
         
-        urlComponents.queryItems = queryParams.map { URLQueryItem(name: $0.key, value: $0.value) }
+        if !queryParams.isEmpty {
+            urlComponents.queryItems = queryParams.map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
         
         guard let url = urlComponents.url else {
             subject.value = .failure(URLError(.badURL))

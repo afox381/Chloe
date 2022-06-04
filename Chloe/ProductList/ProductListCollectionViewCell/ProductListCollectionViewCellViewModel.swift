@@ -9,33 +9,37 @@ protocol ProductListCollectionViewCellViewModelType {
 
 public struct ProductListCollectionViewCellViewModel: ProductListCollectionViewCellViewModelType {
     let productListItem: ProductListItem
+    let imageResolution: String
     let isLiked: Bool
     
-    enum Constants {
-        static let resolution: String = "13" // 240x320
-    }
-    
-    init(with productListItem: ProductListItem, isLiked: Bool) {
+//    enum Constants {
+//        static let resolution: String = "13" // 240x320
+//    }
+//
+    init(productListItem: ProductListItem,
+         imageResolution: String,
+         isLiked: Bool) {
         self.productListItem = productListItem
+        self.imageResolution = imageResolution
         self.isLiked = isLiked
     }
     
     var title: NSAttributedString {
         productListItem.title.attributed()
-            .applyFont(Font.listTitle)
+            .applyFont(.listTitle)
             .applyForegroundColor(.black)
     }
     
     var price: NSAttributedString {
         productListItem.fullPrice.formattedPrice().attributed()
-            .applyFont(Font.listPrice)
+            .applyFont(.listPrice)
             .applyForegroundColor(.black)
     }
     
     var imageUrl: URL? {
         let urlString = Url.productImage(folderId: String(productListItem.defaultCode10.prefix(2)),
                                          defaultCode10: productListItem.defaultCode10,
-                                         resolution: Constants.resolution)
+                                         resolution: imageResolution)
         return URL(string: urlString)
     }
 }

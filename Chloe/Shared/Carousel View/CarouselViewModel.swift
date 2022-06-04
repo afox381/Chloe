@@ -17,7 +17,7 @@ struct CarouselViewModel: CarouselViewModelType {
     
     func attributedTitle(index: Int) -> NSAttributedString {
         carouselItems[index].title.attributed()
-            .applyFont(Font.categoryTitle)
+            .applyFont(.categoryTitle)
             .applyForegroundColor(.black)
     }
 }

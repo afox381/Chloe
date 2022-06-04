@@ -1,12 +1,20 @@
 import UIKit
 
-enum Font {
+extension UIFont {
     static let navigationTitle: UIFont = Futura2.regular(ofSize: 21)
     static let categoryTitle: UIFont = Futura2.regular(ofSize: 21)
     static let loadFailureTitle: UIFont = Futura2.regular(ofSize: 32)
     static let loadFailureRetry: UIFont = Futura2.regular(ofSize: 20)
     static let listPrice: UIFont = Futura2.bold(ofSize: 14)
     static let listTitle: UIFont = Futura2.regular(ofSize: 14)
+    
+    enum Detail {
+        static let name: UIFont = Futura2.regular(ofSize: 18)
+        static let price: UIFont = Futura2.bold(ofSize: 20)
+        static let productDetailsHeader: UIFont = Futura2.regular(ofSize: 16)
+        static let descriptionHeader: UIFont = Futura2.regular(ofSize: 16)
+        static let details: UIFont = Futura2.regular(ofSize: 14)
+    }
 
     static private let sizeDeviceModifier: CGFloat = UIDevice.isIPad ? 1.2 : 1
 

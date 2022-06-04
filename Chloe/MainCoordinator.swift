@@ -11,20 +11,21 @@ final class MainCoordinator: UINavigationController {
         navigationController.navigationBar.tintColor = .black
         navigationController.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.black,
-            .font: Font.navigationTitle
+            .font: UIFont.navigationTitle
         ]
         return navigationController
     }()
-    
-    enum Constants {
-        static let fakeLaunchScreenDuration: TimeInterval = 2
-    }
-    
-    lazy var categoryController: CategoryViewController = {
+    private lazy var categoryController: CategoryViewController = {
         let controller = CategoryViewController(viewModel: CategoryViewModel())
         controller.delegate = self
         return controller
     }()
+
+    private let emptyImage = UIImage(named: "empty_picture")!
+
+    enum Constants {
+        static let fakeLaunchScreenDuration: TimeInterval = 2
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,22 +91,13 @@ extension MainCoordinator: CategoryViewControllerDelegate {
 
 extension MainCoordinator: ProductListViewControllerDelegate {
     func productListViewController(_ productListViewController: ProductListViewController,
-                                     didSelect productListItem: ProductListItem) {
-        let hostingController = UIHostingController(rootView: Text("Hello, World!"))
-        productListNavigationController.pushViewController(hostingController, animated: true)
+                                   didSelect productListItem: ProductListItem,
+                                   image: UIImage?) {
+        let viewModel = ProductViewModel(code8: productListItem.code8,
+                                         image: image ?? emptyImage,
+                                         productDetailRepository: productDetailRepository)
         
-//        let viewModel = ProductDetailViewModel(code8: productListItem.code8,
-//                                               image: nil,
-//                                               productDetailRepository: productDetailRepository,
-//                                               likesRepository: likesRepository)
-//        let controller = ProductDetailViewController(viewModel: viewModel)
-//        productListNavigationController.pushViewController(controller, animated: true)
+        let hostingController = UIHostingController(rootView: ProductView(viewModel: viewModel))
+        productListNavigationController.pushViewController(hostingController, animated: true)
     }
 }
-
-extension MainCoordinator: ProductDetailViewDelegate {
-    func productDetailViewDidToggleLike(_ id: String) {
-//        productListController.refreshContent() // TODO: Toggle Like
-    }
-}
-

@@ -3,7 +3,8 @@ import Combine
 
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListViewController(_ productListViewController: ProductListViewController,
-                                   didSelect productItem: ProductListItem)
+                                   didSelect productListItem: ProductListItem,
+                                   image: UIImage?)
 }
 
 final class ProductListViewController: UIViewController {
@@ -18,6 +19,7 @@ final class ProductListViewController: UIViewController {
         static let headerHeight: CGFloat = 43
         static let cellSpacing: CGFloat = 8
         static let cellWidthHeighRatio: CGFloat = 1.67
+        static let imageResolution: String = "21" // 480x640
     }
     
     private let viewModel: ProductListViewModelType
@@ -136,16 +138,18 @@ extension ProductListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ProductListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.productItemCellID, for: indexPath) as! ProductListCollectionViewCell
         let productListItem = productListItems[indexPath.item]
-        cell.update(with: ProductListCollectionViewCellViewModel(with: productListItem,
-                                                            isLiked: viewModel.isLiked(productId: productListItem.code8)))
+        cell.update(with: ProductListCollectionViewCellViewModel(productListItem: productListItem,
+                                                                 imageResolution: Constants.imageResolution,
+                                                                 isLiked: viewModel.isLiked(productId: productListItem.code8)))
         return cell
     }
 }
 
 extension ProductListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ProductListCollectionViewCell else { return }
         let productListItem = productListItems[indexPath.row]
-        delegate?.productListViewController(self, didSelect: productListItem)
+        delegate?.productListViewController(self, didSelect: productListItem, image: cell.imageView.image)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

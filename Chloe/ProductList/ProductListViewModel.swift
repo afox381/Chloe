@@ -26,13 +26,13 @@ struct ProductListViewModel: ProductListViewModelType {
     
     var loadFailureTitle: NSAttributedString {
         "Load Failed".attributed() // TODO: Localisation
-            .applyFont(Font.loadFailureTitle)
+            .applyFont(.loadFailureTitle)
             .applyForegroundColor(.black)
     }
     
     var loadFailureRetry: NSAttributedString {
         "Retry".attributed()
-            .applyFont(Font.loadFailureRetry)
+            .applyFont(.loadFailureRetry)
             .applyForegroundColor(.black)
             .applyUnderline()
     }
