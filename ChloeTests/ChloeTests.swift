@@ -13,23 +13,23 @@ class ChloeTests: XCTestCase {
         let repository = LikesRepository(likesFilename: "test.filename")
 
         // Add our first like
-        repository.toggleLike(15)
-        XCTAssertTrue(repository.isLiked(15))
+        repository.toggleLike("15")
+        XCTAssertTrue(repository.isLiked("15"))
         
         // Add a second like
-        repository.toggleLike(23)
-        XCTAssertTrue(repository.isLiked(15))
-        XCTAssertTrue(repository.isLiked(23))
+        repository.toggleLike("23")
+        XCTAssertTrue(repository.isLiked("15"))
+        XCTAssertTrue(repository.isLiked("23"))
         
         // Remove our first like
-        repository.toggleLike(15)
-        XCTAssertFalse(repository.isLiked(15))
-        XCTAssertTrue(repository.isLiked(23))
+        repository.toggleLike("15")
+        XCTAssertFalse(repository.isLiked("15"))
+        XCTAssertTrue(repository.isLiked("23"))
         
         // Remove our second like
-        repository.toggleLike(23)
-        XCTAssertFalse(repository.isLiked(15))
-        XCTAssertFalse(repository.isLiked(23))
+        repository.toggleLike("23")
+        XCTAssertFalse(repository.isLiked("15"))
+        XCTAssertFalse(repository.isLiked("23"))
 
         XCTAssertTrue(repository.removeLocalFile())
     }
