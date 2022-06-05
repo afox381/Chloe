@@ -8,13 +8,16 @@ public enum HTTPServiceError: Error {
 }
 
 final class MockProductDetailRepository: ProductDetailRepositoryType {
-    var isSuccessfulResponse: Bool = true
+    var isLoading: Bool = false
+    var didFail: Bool = false
     
     func fetchProductDetail(code8: String) -> AnyPublisher<AsyncState<ProductDetailItem>, Never> {
-        if isSuccessfulResponse {
-            return CurrentValueSubject<AsyncState<ProductDetailItem>, Never>(.success(ProductDetailItem.arrange())).eraseToAnyPublisher()
-        } else {
+        if isLoading {
+            return CurrentValueSubject<AsyncState<ProductDetailItem>, Never>(.loading).eraseToAnyPublisher()
+        } else if didFail {
             return CurrentValueSubject<AsyncState<ProductDetailItem>, Never>(.failure(HTTPServiceError.dataIsNotDecodable)).eraseToAnyPublisher()
+        } else {
+            return CurrentValueSubject<AsyncState<ProductDetailItem>, Never>(.success(ProductDetailItem.arrange())).eraseToAnyPublisher()
         }
     }
 }
