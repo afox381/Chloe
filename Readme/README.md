@@ -6,9 +6,17 @@ Andrew Fox, June 2022
 
 ## Project Details
 
-The "iOS Developer test" pdf outlines all expectations.
+The Chloe app consists of three core sections, a horizontally scrolled list of categories which, when tapped take the user to a paged collection view
+containing products from that category. Both of these are written using UIKit and Swift. Tapping on a product in the collection view takes the user 
+to the detail view showing a broader collection of information about the selected product. This was written using SwiftUI.
 
-This project was completed in roughly 12 hours using a mix of Swift and SwiftUI.
+Combine is used for the data fetching. A single unit test was included for the business logic around the local repository, in line to handle the likes
+(though not currently wired up due to time constraints). Snapshot tests were included for a single category layout as well as a single arranged detail
+view. These could of course be extended, but cover a basic set of features for this technical test.  
+
+The "iOS Developer test" pdf goes into additional detail around project requiremenets. 
+
+This project was completed in roughly 12 hours across the span of 5 days.
 
 The target device developed against was the latest Swift/iOS on the iPhone 13 Simulator. All snapshot tests have been set against this combination.
 

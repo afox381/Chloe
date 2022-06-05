@@ -211,7 +211,7 @@
 				6F2FC6B22829752A0043BD74 /* Core */,
 				6F2FC6BA282977DE0043BD74 /* Extensions */,
 				6F2FC6B32829764A0043BD74 /* Shared */,
-				6FBDF68B284809F100A817A9 /* CategoryViewController */,
+				6FBDF68B284809F100A817A9 /* Categories */,
 				6F2FC6C92829788A0043BD74 /* ProductList */,
 				6F2FC6CA282978980043BD74 /* ProductDetail */,
 				6F2FC6F5282AFC4F0043BD74 /* Models */,
@@ -415,14 +415,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		6FBDF68B284809F100A817A9 /* CategoryViewController */ = {
+		6FBDF68B284809F100A817A9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				6FBDF69228480A4100A817A9 /* CategoryViewController.xib */,
 				6FBDF68C28480A0A00A817A9 /* CategoryViewController.swift */,
 				6FBDF69028480A2300A817A9 /* CategoryViewModel.swift */,
 			);
-			path = CategoryViewController;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
