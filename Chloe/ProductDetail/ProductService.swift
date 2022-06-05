@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class ProductViewModel: ObservableObject {
+class ProductService: ObservableObject {
     @Published var loadingState: AsyncState<ProductDetailItem> = .inactive
     
     var image: UIImage

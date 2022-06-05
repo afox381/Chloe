@@ -3,8 +3,9 @@ import UIKit
 extension UIFont {
     static let navigationTitle: UIFont = Futura2.regular(ofSize: 21)
     static let categoryTitle: UIFont = Futura2.regular(ofSize: 21)
-    static let loadFailureTitle: UIFont = Futura2.regular(ofSize: 32)
-    static let loadFailureRetry: UIFont = Futura2.regular(ofSize: 20)
+    static let loading: UIFont = Futura2.regular(ofSize: 21)
+    static let loadFailureTitle: UIFont = Futura2.regular(ofSize: 24)
+    static let loadFailureRetry: UIFont = Futura2.regular(ofSize: 18)
     static let listPrice: UIFont = Futura2.bold(ofSize: 14)
     static let listTitle: UIFont = Futura2.regular(ofSize: 14)
     

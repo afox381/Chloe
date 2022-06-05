@@ -93,11 +93,11 @@ extension MainCoordinator: ProductListViewControllerDelegate {
     func productListViewController(_ productListViewController: ProductListViewController,
                                    didSelect productListItem: ProductListItem,
                                    image: UIImage?) {
-        let viewModel = ProductViewModel(code8: productListItem.code8,
-                                         image: image ?? emptyImage,
-                                         productDetailRepository: productDetailRepository)
+        let productService = ProductService(code8: productListItem.code8,
+                                            image: image ?? emptyImage,
+                                            productDetailRepository: productDetailRepository)
         
-        let hostingController = UIHostingController(rootView: ProductView(viewModel: viewModel))
+        let hostingController = UIHostingController(rootView: ProductView(productService: productService))
         productListNavigationController.pushViewController(hostingController, animated: true)
     }
 }

@@ -1,55 +1,14 @@
-//
-//  ProductView.swift
-//  Chloe
-//
-//  Created by Andrew Fox on 04/06/2022.
-//
-
 import SwiftUI
 
 struct ProductView: View {
-    @ObservedObject var viewModel: ProductViewModel
+    @ObservedObject var productService: ProductService
     
     var body: some View {
-        //                guard let self = self else { return }
-        //
-        //                switch state {
-        //                case .loading:
-        //                    if page == 0 {
-        //                        self.view.showLoadingHUD(type: .loading, withFader: false)
-        //                    }
-        //                case .success(let productList):
-        //                    self.isFetching = false
-        //                    self.view.hideLoadingHUD() {
-        //                        guard let productList = productList else {
-        //                            self.presentFetchError(.unexpectedResponse)
-        //                            return
-        //                        }
-        //                        self.totalResults = productList.resultsLite.totalResults
-        //                        self.productListItems.append(contentsOf: productList.resultsLite.items)
-        //                        self.collectionView.reloadData()
-        //                        if self.collectionView.alpha == 0 {
-        //                            UIView.animate(withDuration: 0.3) {
-        //                                self.collectionView.alpha = 1
-        //                            }
-        //                        }
-        //                    }
-        //                case .failure:
-        //                    self.isFetching = false
-        //                    if page == 0, self.productListItems.count == 0 {
-        //                        self.view.hideLoadingHUD() {
-        //                            self.setLoadFailureHidden(false)
-        //                        }
-        //                    }
-        //                case .inactive:
-        //                    break
-        //                }
-
-        switch viewModel.loadingState {
+        switch productService.loadingState {
         case .loading:
             loadingView
         case .success(let productDetailItem):
-            ContentView(productDetailItem: productDetailItem, image: viewModel.image)
+            ContentView(productDetailItem: productDetailItem, image: productService.image)
         case .failure:
             failureView
         case .inactive:
@@ -59,10 +18,20 @@ struct ProductView: View {
     
     var loadingView: some View {
         Text("Loading...")
+            .font(Font(UIFont.loading))
     }
     
     var failureView: some View {
-        Text("Failure. :(")
+        VStack(spacing: 8) {
+            Spacer()
+            Text("Loading Failed")
+                .font(Font(UIFont.loadFailureTitle))
+            Text("Could not fetch the product details. Please check your internet and try again.")
+                .multilineTextAlignment(.center)
+                .font(Font(UIFont.loadFailureRetry))
+            Spacer()
+        }
+        .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
     }
 }
 
@@ -115,9 +84,9 @@ struct ContentView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ProductViewModel(code8: "15203484",
-                                         image: UIImage(named: "category_sneakers")!,
-                                         productDetailRepository: ProductDetailRepository())
-        ProductView(viewModel: viewModel)
+        let productService = ProductService(code8: "15203484",
+                                            image: UIImage(named: "category_sneakers")!,
+                                            productDetailRepository: ProductDetailRepository())
+        ProductView(productService: productService)
     }
 }
