@@ -12,10 +12,6 @@ public struct ProductListCollectionViewCellViewModel: ProductListCollectionViewC
     let imageResolution: String
     let isLiked: Bool
     
-//    enum Constants {
-//        static let resolution: String = "13" // 240x320
-//    }
-//
     init(productListItem: ProductListItem,
          imageResolution: String,
          isLiked: Bool) {

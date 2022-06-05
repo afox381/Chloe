@@ -6,8 +6,8 @@ enum HUDDisplayType {
     
     var description: String {
         switch self {
-        case .loading: return "Loading..."
-        case .authenticating: return "Authenticating..."
+        case .loading: return "Loading..." // TODO: Localisation
+        case .authenticating: return "Authenticating..." // TODO: Localisation
         }
     }
 }

@@ -7,6 +7,7 @@ final class LikesRepository: LocalRepository {
     }
     
     let likesFilename: String
+    
     lazy var cachedLikeIds: [String] = storedItems()
     
     init(likesFilename: String = Strings.defaultLikesFilename) {

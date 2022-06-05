@@ -4,7 +4,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-//    @IBOutlet weak var likeImageView: UIImageView! // TODO: Likes!
+    @IBOutlet weak var likeImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +23,6 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
             imageView.image(fromUrl: imageUrl)
         }
         
-//        likeImageView.isHidden = !viewModel.isLiked // TODO: Likes!
+        likeImageView.isHidden = !viewModel.isLiked
     }
 }

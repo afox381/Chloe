@@ -1,7 +1,6 @@
 import UIKit
 
 extension UIView {
-
     func setFrameForSizeFitting(width: CGFloat) {
         let targetSize = CGSize(width: width, height: 0)
         let fittingSize = self.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required,
@@ -14,5 +13,4 @@ extension UIView {
         let fittingSize = self.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel,                                                               verticalFittingPriority: .required)
         self.frame.size = fittingSize
     }
-
 }

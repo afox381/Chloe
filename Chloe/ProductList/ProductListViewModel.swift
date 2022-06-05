@@ -31,7 +31,7 @@ struct ProductListViewModel: ProductListViewModelType {
     }
     
     var loadFailureRetry: NSAttributedString {
-        "Retry".attributed()
+        "Retry".attributed() // TODO: Localisation
             .applyFont(.loadFailureRetry)
             .applyForegroundColor(.black)
             .applyUnderline()

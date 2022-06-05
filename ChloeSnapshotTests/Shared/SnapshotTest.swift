@@ -3,17 +3,6 @@ import UIKit
 import XCTest
 
 extension XCTestCase {
-
-    /**
-    Assert localised ViewController in Navigation
-
-    *Instructions to record:*
-
-    `iPhone` 13.
-
-    `iOS` 15.0.
-
-    */
     func assertLocalisedVCInNavigation(matching subject: UINavigationController,
                                               as snapshotting: Snapshotting<UIViewController, UIImage> = Snapshotting.image,
                                               named name: String? = nil,
@@ -35,16 +24,6 @@ extension XCTestCase {
                                        line: line)
     }
 
-    /**
-     Assert localised View
-
-     *Instructions to record:*
-
-     `iPhone` 12.
-
-     `iOS` 14.4.
-
-     */
     func assertLocalisedView(matching value: UIView,
                                     as snapshotting: Snapshotting<UIView, UIImage> = Snapshotting.image,
                                     named name: String? = nil,

@@ -30,16 +30,14 @@ final class MainCoordinator: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presentCategories()
-        presentFakeLaunchScreen(on: categoryController.view, displaySeconds: Constants.fakeLaunchScreenDuration) {
-            self.categoryController.start()
-        }
+        presentFakeLaunchScreen(on: categoryController.view, displaySeconds: Constants.fakeLaunchScreenDuration)
     }
     
     private func presentCategories() {
         viewControllers = [categoryController]
     }
     
-    private func presentFakeLaunchScreen(on view: UIView, displaySeconds: TimeInterval, completion: @escaping () -> Void) {
+    private func presentFakeLaunchScreen(on view: UIView, displaySeconds: TimeInterval, completion: (() -> Void)? = nil) {
         let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
         let launchViewController = storyboard.instantiateViewController(withIdentifier: "viewController")
         view.add(child: launchViewController.view)
@@ -50,7 +48,7 @@ final class MainCoordinator: UINavigationController {
                 launchViewController.view.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             }, completion: { _ in
                 launchViewController.view.removeFromSuperview()
-                completion()
+                completion?()
             })
         }
     }

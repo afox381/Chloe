@@ -44,10 +44,20 @@
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drJ-Yy-gca">
                         <rect key="frame" x="399" y="572.5" width="44" height="44"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JPZ-WJ-1A0">
+                                <rect key="frame" x="12" y="13.5" width="20" height="17.5"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="2Sg-iE-PHb"/>
                             <constraint firstAttribute="height" constant="44" id="2ec-6I-kwU"/>
+                            <constraint firstAttribute="bottom" secondItem="JPZ-WJ-1A0" secondAttribute="bottom" constant="12" id="5e5-wm-XAh"/>
+                            <constraint firstItem="JPZ-WJ-1A0" firstAttribute="top" secondItem="drJ-Yy-gca" secondAttribute="top" constant="12" id="OrV-9k-ZuE"/>
+                            <constraint firstItem="JPZ-WJ-1A0" firstAttribute="leading" secondItem="drJ-Yy-gca" secondAttribute="leading" constant="12" id="R27-ic-QlG"/>
+                            <constraint firstAttribute="trailing" secondItem="JPZ-WJ-1A0" secondAttribute="trailing" constant="12" id="dJu-13-gzb"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Tf-AH-HRl">
@@ -75,10 +85,14 @@
             <size key="customSize" width="435" height="754"/>
             <connections>
                 <outlet property="imageView" destination="j4I-UQ-xKO" id="Vwe-lk-uZ6"/>
+                <outlet property="likeImageView" destination="JPZ-WJ-1A0" id="Rkx-cl-kE4"/>
                 <outlet property="priceLabel" destination="QB8-gg-YEs" id="ufZ-R1-NlO"/>
                 <outlet property="titleLabel" destination="9Tf-AH-HRl" id="OjK-xS-CxU"/>
             </connections>
             <point key="canvasLocation" x="770.39999999999998" y="87.256371814092958"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="heart.fill" catalog="system" width="32" height="32"/>
+    </resources>
 </document>

@@ -26,6 +26,7 @@ final class CarouselView: UIView {
     private var tileViews: [CarouselTileView] = []
     private var previousScrollContentOffsetX: CGFloat = 0
     private var currentFaderView: UIView?
+    private var didTransitionToFill = false
 
     private var tilePct: CGFloat {
         get {
@@ -146,12 +147,9 @@ final class CarouselView: UIView {
     }
     
     func transitionTileToFill(completion: @escaping () -> Void) {
-        if isTransitioned {
-            transitionTileFromFill {
-                completion()
-            }
-            return
-        }
+        guard !didTransitionToFill else { return }
+        
+        isUserInteractionEnabled = false
         let tileView = tileViews[currentPageIndex]
         let faderView = UIView()
         faderView.backgroundColor = viewModel.carouselItems[currentPageIndex].backgroundColour
@@ -163,15 +161,17 @@ final class CarouselView: UIView {
             tileView.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
             faderView.alpha = 1.0
         }, completion: { _ in
+            self.isUserInteractionEnabled = true
             completion()
         })
         
-        isTransitioned = true
+        didTransitionToFill = true
     }
     
-    var isTransitioned = false
-    func transitionTileFromFill(completion: @escaping () -> Void) {
-        guard let faderView = currentFaderView else { return }
+    func transitionTileFromFill(completion: (() -> Void)? = nil) {
+        guard didTransitionToFill, let faderView = currentFaderView else { return }
+        
+        isUserInteractionEnabled = false
         let tileView = tileViews[currentPageIndex]
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
             tileView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -179,10 +179,11 @@ final class CarouselView: UIView {
         }, completion: { _ in
             faderView.removeFromSuperview()
             self.currentFaderView = nil
-            completion()
+            self.isUserInteractionEnabled = true
+            completion?()
         })
         
-        isTransitioned = false
+        didTransitionToFill = false
     }
     
     @IBAction private func didTap() {

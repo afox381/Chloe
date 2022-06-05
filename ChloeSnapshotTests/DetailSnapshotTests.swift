@@ -2,7 +2,7 @@ import XCTest
 import SwiftUI
 @testable import Chloe
 
-class ChloeSnapshotTests: XCTestCase {
+class DetailSnapshotTests: XCTestCase {
     private let shouldRecord: Bool = false
     private let productDetailRepository = MockProductDetailRepository()
 
@@ -12,13 +12,7 @@ class ChloeSnapshotTests: XCTestCase {
     override func tearDown() {
     }
 
-    func testCategoryController() {
-        let controller = CategoryViewController(viewModel: CategoryViewModel())
-        let nav = navigationViewController(with: controller)
-        assertLocalisedVCInNavigation(matching: nav, record: shouldRecord)
-    }
-    
-    func testProductDetails() {
+    func testSuccess() {
         let productService = ProductService(code8: "code8",
                                             image: UIImage(named: "testImage")!,
                                             productDetailRepository: productDetailRepository)
@@ -41,7 +35,7 @@ class ChloeSnapshotTests: XCTestCase {
         assertLocalisedVCInNavigation(matching: nav, record: shouldRecord)
     }
     
-    func testLoadingDidFail() {
+    func testFailure() {
         productDetailRepository.didFail = true
         let productService = ProductService(code8: "code8",
                                             image: UIImage(named: "testImage")!,

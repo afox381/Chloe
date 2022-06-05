@@ -19,7 +19,6 @@ final class ProductListViewController: UIViewController {
         static let headerHeight: CGFloat = 43
         static let cellSpacing: CGFloat = 8
         static let cellWidthHeighRatio: CGFloat = 1.67
-        static let imageResolution: String = "21" // 480x640
     }
     
     private let viewModel: ProductListViewModelType
@@ -76,18 +75,7 @@ final class ProductListViewController: UIViewController {
                 case .success(let productList):
                     self.isFetching = false
                     self.view.hideLoadingHUD() {
-                        guard let productList = productList else {
-                            self.presentFetchError(.unexpectedResponse)
-                            return
-                        }
-                        self.totalResults = productList.resultsLite.totalResults
-                        self.productListItems.append(contentsOf: productList.resultsLite.items)
-                        self.collectionView.reloadData()
-                        if self.collectionView.alpha == 0 {
-                            UIView.animate(withDuration: 0.3) {
-                                self.collectionView.alpha = 1
-                            }
-                        }
+                        self.handleProductList(productList)
                     }
                 case .failure:
                     self.isFetching = false
@@ -103,6 +91,22 @@ final class ProductListViewController: UIViewController {
             .store(in: &cancellables)
     }
     
+    private func handleProductList(_ productList: ProductList?) {
+        guard let productList = productList else {
+            presentFetchError(.unexpectedResponse)
+            return
+        }
+        totalResults = productList.resultsLite.totalResults
+        productListItems.append(contentsOf: productList.resultsLite.items)
+        collectionView.reloadData()
+        
+        if collectionView.alpha == 0 {
+            UIView.animate(withDuration: 0.3) {
+                self.collectionView.alpha = 1
+            }
+        }
+    }
+    
     private func setLoadFailureHidden(_ isHidden: Bool, completion: (() -> Void)? = nil) {
         loadFailedLabel.attributedText = viewModel.loadFailureTitle
         loadFailedRetryButton.setAttributedTitle(viewModel.loadFailureRetry, for: .normal)
@@ -115,7 +119,7 @@ final class ProductListViewController: UIViewController {
     }
     
     private func presentFetchError(_ error: RepositoryError?) {
-        let alert = UIAlertController(title: "Fetch Failed", message: "Products failed to download. Please check your internet connection and try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Fetch Failed", message: "Products failed to download. Please check your internet connection and try again.", preferredStyle: .alert) // TODO: Localisation
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in
             self.fetchProductList(page: self.currentProductListPage, withLoadingHUD: true)
@@ -136,10 +140,13 @@ extension ProductListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ProductListCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.productItemCellID, for: indexPath) as! ProductListCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.productItemCellID, for: indexPath) as? ProductListCollectionViewCell else {
+            fatalError("Could not dequeue ProductListCollectionViewCell")
+        }
+        
         let productListItem = productListItems[indexPath.item]
         cell.update(with: ProductListCollectionViewCellViewModel(productListItem: productListItem,
-                                                                 imageResolution: Constants.imageResolution,
+                                                                 imageResolution: ImageResolution.w480h640,
                                                                  isLiked: viewModel.isLiked(productId: productListItem.code8)))
         return cell
     }
@@ -153,8 +160,9 @@ extension ProductListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // Page the next group of products in if needed
         if indexPath.item > productListItems.count - Constants.itemsFromEndToStartPaging,
-            productListItems.count < totalResults,
+           productListItems.count < totalResults,
            !isFetching {
             currentProductListPage += 1
             fetchProductList(page: currentProductListPage, withLoadingHUD: false)
@@ -164,11 +172,11 @@ extension ProductListViewController: UICollectionViewDelegate {
 
 extension ProductListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: Constants.headerHeight)
+        CGSize(width: collectionView.frame.width, height: Constants.headerHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sectionInset = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
+        guard let sectionInset = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset else { return .zero }
         let screenWidth = UIScreen.main.bounds.width - (sectionInset.left + sectionInset.right + Constants.cellSpacing)
         let width = floor(screenWidth / 2)
         let height = width * Constants.cellWidthHeighRatio

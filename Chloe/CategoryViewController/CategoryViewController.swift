@@ -1,17 +1,5 @@
 import UIKit
 
-class GradientView: UIView {
-    override open class var layerClass: AnyClass {
-        return CAGradientLayer.classForCoder()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let gradientLayer = layer as? CAGradientLayer
-        gradientLayer?.colors = [UIColor(named: "ChloeGreyDark")!.cgColor, UIColor(named: "ChloeGreyLight")!.cgColor]
-    }
-}
-
 protocol CategoryViewControllerDelegate: AnyObject {
     func didTapCategory(title: String, category: String)
 }
@@ -45,23 +33,18 @@ final class CategoryViewController: UIViewController {
         view.add(child: carouselView)
     }
     
-    func start() {
-        // TODO: Do some nice animations on start
-    }
-    
     func transitionFromFill() {
-        carouselView.transitionTileFromFill {
-        }
+        carouselView.transitionTileFromFill()
     }
 }
 
 extension CategoryViewController: CarouselViewDelegate {
     func carouselViewDidBeginUpdating(_ carouselView: CarouselView) {
-        // TODO:
+        // Do nothing
     }
     
     func carouselViewDidEndUpdating(_ carouselView: CarouselView) {
-        // TODO:
+        // Do nothing
     }
     
     func carouselViewDidTap(_ carouselView: CarouselView, currentTile: Int) {
