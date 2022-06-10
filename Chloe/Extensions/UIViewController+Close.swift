@@ -1,19 +1,25 @@
 import UIKit
 
-extension UIViewController {
-    private static var onCloseCompletion: (() -> Void)?
+class ClosureSleeve {
+    let closure: () -> Void
     
-    func addClose(completion: (() -> Void)?) {
-        UIViewController.onCloseCompletion = completion
-        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(onClose))
-        navigationItem.setRightBarButton(closeButton, animated: false)
+    init (_ closure: @escaping () -> Void) {
+        self.closure = closure
     }
     
-    @objc private func onClose() {
-        UIViewController.onCloseCompletion?()
-        UIViewController.onCloseCompletion = nil
+    @objc func invoke () {
+        closure()
+    }
+}
+
+extension UIViewController {
+    func addClose(completion: @escaping () -> Void) {
+        let sleeve = ClosureSleeve(completion)
+        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                          style: .plain,
+                                          target: sleeve,
+                                          action: #selector(ClosureSleeve.invoke))
+        navigationItem.setRightBarButton(closeButton, animated: false)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
 }
