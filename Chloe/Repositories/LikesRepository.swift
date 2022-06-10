@@ -1,7 +1,13 @@
 import Foundation
 import Combine
 
-final class LikesRepository: LocalRepository {
+protocol LikesRepositoryType {
+    func toggleLike(_ id: String) -> Bool
+    func isLiked(_ id: String) -> Bool
+    func clearLikes() -> Bool
+}
+
+final class LikesRepository: LocalRepository, LikesRepositoryType {
     enum Strings {
         static let defaultLikesFilename: String = "likes.list"
     }
