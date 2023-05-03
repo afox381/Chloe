@@ -3,7 +3,7 @@ import UIKit
 extension UIImageView {
     private static var imageCache = NSCache<NSURL, UIImage>()
     
-    public func image(fromUrl url: URL) {
+    public func setImage(fromUrl url: URL) {
         if let image = UIImageView.imageCache.object(forKey: url as NSURL) {
             self.image = image
             return
@@ -17,5 +17,10 @@ extension UIImageView {
                 UIImageView.imageCache.setObject(image, forKey: url as NSURL)
             }
         }.resume()
+    }
+
+    static func purgeImageCache() {
+        imageCache.removeAllObjects()
+        imageCache = NSCache<NSURL, UIImage>()
     }
 }

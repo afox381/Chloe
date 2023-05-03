@@ -20,7 +20,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         priceLabel.attributedText = viewModel.price
         
         if let imageUrl = viewModel.imageUrl {
-            imageView.image(fromUrl: imageUrl)
+            imageView.setImage(fromUrl: imageUrl)
         }
         
         likeImageView.isHidden = !viewModel.isLiked
