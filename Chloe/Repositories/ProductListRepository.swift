@@ -11,13 +11,18 @@ protocol ProductListRepositoryType {
 extension ProductListRepositoryType {
     func fetchProductList(category: String, page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never>  {
         fetchProductList(category: category,
-                              itemsPerPage: 16,
-                              gender: "D",
-                              page: page)
+                         itemsPerPage: ProductListRepository.Defaults.itemsPerPage,
+                         gender: ProductListRepository.Defaults.gender,
+                         page: page)
     }
 }
 
 final class ProductListRepository: RemoteRepository, ProductListRepositoryType {
+    enum Defaults {
+        static let itemsPerPage: Int = 16
+        static let gender: String = "D"
+    }
+
     override init(urlSession: URLSession = URLSession.shared) {
         super.init(urlSession: urlSession)
     }
