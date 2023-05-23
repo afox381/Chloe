@@ -1,28 +1,23 @@
 import Foundation
 import Combine
 
-protocol ProductListRepositoryType {
+protocol ProductListRepositoryProtocol {
     func fetchProductList(category: String,
                           itemsPerPage: Int,
                           gender: String,
                           page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never>
 }
 
-extension ProductListRepositoryType {
+extension ProductListRepositoryProtocol {
     func fetchProductList(category: String, page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never>  {
         fetchProductList(category: category,
-                         itemsPerPage: ProductListRepository.Defaults.itemsPerPage,
-                         gender: ProductListRepository.Defaults.gender,
+                         itemsPerPage: 16,
+                         gender: "D",
                          page: page)
     }
 }
 
-final class ProductListRepository: RemoteRepository, ProductListRepositoryType {
-    enum Defaults {
-        static let itemsPerPage: Int = 16
-        static let gender: String = "D"
-    }
-
+final class ProductListRepository: RemoteRepository, ProductListRepositoryProtocol {
     override init(urlSession: URLSession = URLSession.shared) {
         super.init(urlSession: urlSession)
     }

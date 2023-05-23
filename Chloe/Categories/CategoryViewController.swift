@@ -10,7 +10,8 @@ final class CategoryViewController: UIViewController {
     private lazy var carouselView: CarouselView = {
         let carouselView = CarouselView.loadFromNib()
         carouselView.delegate = self
-        carouselView.viewModel = CarouselViewModel(carouselItems: viewModel.carouselItems)
+        carouselView.viewModel = CarouselViewModel(carouselItems: viewModel.carouselItems,
+                                                   viewWidth: UIScreen.main.bounds.width)
         return carouselView
     }()
     

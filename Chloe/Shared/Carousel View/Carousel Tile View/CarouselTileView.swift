@@ -1,33 +1,33 @@
+import Combine
 import UIKit
 
 final class CarouselTileView: UIView {
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var highlightContainerView: UIView!
-    @IBOutlet weak var highlightCentreXConstraint: NSLayoutConstraint!
-    @IBOutlet weak var highlightCentreYConstraint: NSLayoutConstraint!
-    
-    enum Metrics {
-        static let parallaxAmplitude: CGFloat = 900
-        
-        enum Motion {
-            static let maxHighlight: CGFloat = 800
-            static let maxShadow: CGFloat = 15
-        }
-    }
 
-    var pct: CGFloat = 0
+    private var subscriptions: Set<AnyCancellable> = .init()
+
     var viewModel: CarouselTileViewModelType! {
         didSet {
+            bind()
             setupViews()
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+    private func bind() {
+        subscriptions = []
+
+        viewModel.attributesPublisher.sink { [weak self] attributes in
+            self?.updateViewAttributes(attributes)
+        }
+        .store(in: &subscriptions)
     }
-    
+
     private func setupViews() {
-        pct = viewModel.pct
         backgroundImageView.image = UIImage(named: viewModel.imageName)
+    }
+
+    private func updateViewAttributes(_ viewAttributes: TileViewAttributes) {
+        layer.sublayerTransform = viewAttributes.transform
+        alpha = viewAttributes.alpha
     }
 }

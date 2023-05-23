@@ -14,10 +14,10 @@ final class CarouselView: UIView {
     @IBOutlet weak var titleContainerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    enum Metrics {
-        static let alphaStartPct: CGFloat = 0.3
-        static let alphaEndPct: CGFloat = 0.7
-        static let zTranslationDelta: CGFloat = 250
+    enum Constants {
+        static let numberOfScreenWidths: CGFloat = 14000 // Max size before scrollview breaks
+        static let contentWidth: CGFloat = UIScreen.main.bounds.width * numberOfScreenWidths
+        static let startOffsetX: CGFloat = contentWidth / 2
     }
 
     weak var delegate: CarouselViewDelegate?
@@ -27,56 +27,36 @@ final class CarouselView: UIView {
     private var previousScrollContentOffsetX: CGFloat = 0
     private var currentFaderView: UIView?
     private var didTransitionToFill = false
-
-    private var tilePct: CGFloat {
-        get {
-            guard scrollView != nil else { return 0 }
-            return max(min(scrollView.contentOffset.x / (contentViewWidthConstraint.constant - scrollView.frame.width), 1), 0)
-        }
-        set {
-            guard scrollView != nil else { return }
-            scrollView.contentOffset = CGPoint(x: (newValue * CGFloat(viewModel.carouselItems.count - 1)) * scrollView.frame.width, y: 0)
-        }
-    }
-    
-    private var currentPageIndex: Int {
-        Int((scrollView.contentOffset.x + (scrollView.frame.width / 2)) / scrollView.frame.width)
-    }
+    private var currentPageIndex: Int { viewModel.pageIndex(for: scrollView.contentOffset.x) }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         guard tileViews.isEmpty else { return }
         setup()
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+
     private func setup() {
-        contentViewWidthConstraint.constant = CGFloat(viewModel.carouselItems.count) * frame.width
+        contentViewWidthConstraint.constant = Constants.contentWidth
         scrollView.layoutIfNeeded()
-        tilePct = 0
-        previousScrollContentOffsetX = scrollView.contentOffset.x
+        previousScrollContentOffsetX = Constants.startOffsetX
+        scrollView.contentOffset = CGPoint(x: Constants.startOffsetX, y: 0)
         setupContent()
-        updateViews(delta: 0)
+        viewModel.updateTileViews(delta: 0)
         setupPageControl()
         refreshPageControl()
         setTitleHidden(false, title: viewModel.attributedTitle(index: currentPageIndex))
     }
     
     private func setupPageControl() {
-        pageControl.numberOfPages = viewModel.carouselItems.count
+        pageControl.numberOfPages = viewModel.tileViewModels.count
         pageControl.currentPageIndicatorTintColor = UIColor(named: "ChloeBeige")
         pageControl.tintColor = .white
     }
 
     private func setupContent() {
-        var offsetX: CGFloat = 0
-        var pct: CGFloat = 0.5
-        viewModel.carouselItems.forEach { carouselItem in
+        viewModel.tileViewModels.forEach { tileViewModel in
             let tileView = CarouselTileView.loadFromNib()
-            tileView.viewModel = CarouselTileViewModel(imageName: carouselItem.imageName, pct: pct)
+            tileView.viewModel = tileViewModel
             
             tileView.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(tileView)
@@ -85,13 +65,10 @@ final class CarouselView: UIView {
                 tileView.topAnchor.constraint(equalTo: containerView.topAnchor),
                 tileView.widthAnchor.constraint(equalToConstant: frame.width),
                 tileView.heightAnchor.constraint(equalToConstant: frame.height * 0.8)
-                ])
+            ])
             
             tileView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
             tileViews.append(tileView)
-
-            offsetX += frame.width
-            pct += 0.5
         }
     }
     
@@ -99,42 +76,15 @@ final class CarouselView: UIView {
         pageControl.currentPage = currentPageIndex
     }
     
-    private func updateTileView(_ tileView: CarouselTileView) {
-        let boundedPct = min(max(tileView.pct, 0), 1)
-        let shiftedPct = (boundedPct * 2) - 1
-        let curvedPct = sin((shiftedPct * 30).inRadians)
-        
-        let xTranslation = curvedPct * (UIScreen.main.bounds.width * 2)
-        let zTranslation: CGFloat = abs(curvedPct) * 100
-        var transform = CATransform3D.Identity.Perspective.low
-        transform = CATransform3DTranslate(transform, xTranslation, 0, zTranslation)
-        transform = CATransform3DRotate(transform, (curvedPct * -25).inRadians, 0, 1, 0)
-        tileView.layer.sublayerTransform = transform
-        tileView.alpha = alpha(for: boundedPct)
-    }
 
-    private func alpha(for pct: CGFloat) -> CGFloat {
-        let alpha: CGFloat
-        switch pct {
-        case 0...Metrics.alphaStartPct:
-            alpha = min(abs(1 - ((Metrics.alphaStartPct - pct) / Metrics.alphaStartPct)), 1)
-        case Metrics.alphaEndPct..<1.0:
-            alpha = min(abs(1 - ((pct - Metrics.alphaEndPct) / (1 - Metrics.alphaEndPct))), 1)
-        case 1.0...999, -999..<0.0:
-            alpha = 0
-        default:
-            alpha = 1
-        }
-        return alpha
+    @IBAction private func didTap() {
+        delegate?.carouselViewDidTap(self, currentTile: currentPageIndex)
     }
-    
-    private func updateViews(delta: CGFloat) {
-        tileViews.forEach { tileView in
-            tileView.pct += delta / (scrollView.frame.width * 2)
-            updateTileView(tileView)
-        }
-    }
-    
+}
+
+// MARK: - Title
+
+extension CarouselView {
     private func setTitleHidden(_ isHidden: Bool, title: NSAttributedString? = nil) {
         if let title = title {
             titleLabel.attributedText = title
@@ -145,14 +95,18 @@ final class CarouselView: UIView {
             self.titleContainerView.alpha = targetAlpha
         }
     }
-    
+}
+
+// MARK: - Transition animation
+
+extension CarouselView {
     func transitionTileToFill(completion: @escaping () -> Void) {
         guard !didTransitionToFill else { return }
         
         isUserInteractionEnabled = false
         let tileView = tileViews[currentPageIndex]
         let faderView = UIView()
-        faderView.backgroundColor = viewModel.carouselItems[currentPageIndex].backgroundColour
+        faderView.backgroundColor = viewModel.backgroundColour(for: currentPageIndex)
         faderView.alpha = 0
         tileViews[currentPageIndex].add(child: faderView)
         currentFaderView = faderView
@@ -185,15 +139,11 @@ final class CarouselView: UIView {
         
         didTransitionToFill = false
     }
-    
-    @IBAction private func didTap() {
-        delegate?.carouselViewDidTap(self, currentTile: currentPageIndex)
-    }
 }
 
 extension CarouselView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateViews(delta: previousScrollContentOffsetX - scrollView.contentOffset.x)
+        viewModel.updateTileViews(delta: previousScrollContentOffsetX - scrollView.contentOffset.x)
         previousScrollContentOffsetX = scrollView.contentOffset.x
     }
     
