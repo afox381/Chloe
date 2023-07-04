@@ -72,7 +72,7 @@ class CarouselViewModel: CarouselViewModelType {
         let shiftedPct = (boundedPct * 2) - 1
         let curvedPct = sin((shiftedPct * 30).inRadians)
 
-        let xTranslation = curvedPct * (UIScreen.main.bounds.width * 2)
+        let xTranslation = curvedPct * (390 * 2) // (UIScreen.main.bounds.width * 2)
         let zTranslation: CGFloat = abs(curvedPct) * 100
         var transform = CATransform3D.Identity.Perspective.low
         transform = CATransform3DTranslate(transform, xTranslation, 0, zTranslation)

@@ -3,4 +3,69 @@
    uuid = "98C2AB75-E431-416D-BA33-A5EFD2D7903D"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABFC58BD-1F8B-438B-BC10-14B6E89A118A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chloe/Categories/CategoryViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ABFC58BD-1F8B-438B-BC10-14B6E89A118A - cc19995a3ea7e3d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chloe.CategoryViewController.transitionFromFill() -&gt; ()"
+                  moduleName = "Chloe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewfox/Dropbox/Private/@%20Client%20-%20YNAP/@%20TechTest/@%20Project/Chloe/Chloe/Categories/CategoryViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "38">
+               </Location>
+               <Location
+                  uuid = "ABFC58BD-1F8B-438B-BC10-14B6E89A118A - f67001f855189e3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chloe.CategoryViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Chloe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewfox/Dropbox/Private/@%20Client%20-%20YNAP/@%20TechTest/@%20Project/Chloe/Chloe/Categories/CategoryViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "358">
+               </Location>
+               <Location
+                  uuid = "ABFC58BD-1F8B-438B-BC10-14B6E89A118A - f67001f855189e3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chloe.CategoryViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Chloe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewfox/Dropbox/Private/@%20Client%20-%20YNAP/@%20TechTest/@%20Project/Chloe/Chloe/Categories/CategoryViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "110">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

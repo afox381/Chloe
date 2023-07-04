@@ -15,9 +15,7 @@ final class CarouselView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     
     enum Constants {
-        static let numberOfScreenWidths: CGFloat = 14000 // Max size before scrollview breaks
-        static let contentWidth: CGFloat = UIScreen.main.bounds.width * numberOfScreenWidths
-        static let startOffsetX: CGFloat = contentWidth / 2
+        static let numberOfScreenWidths: CGFloat = 6000 // Max size before scrollview breaks
     }
 
     weak var delegate: CarouselViewDelegate?
@@ -28,7 +26,9 @@ final class CarouselView: UIView {
     private var currentFaderView: UIView?
     private var didTransitionToFill = false
     private var currentPageIndex: Int { viewModel.pageIndex(for: scrollView.contentOffset.x) }
-    
+    private var contentWidth: CGFloat { 390 } // window?.windowScene?.bounds.width ?? 0 }
+    private var startOffsetX: CGFloat { contentWidth / 2 }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         guard tileViews.isEmpty else { return }
@@ -36,10 +36,10 @@ final class CarouselView: UIView {
     }
 
     private func setup() {
-        contentViewWidthConstraint.constant = Constants.contentWidth
+        contentViewWidthConstraint.constant = contentWidth
         scrollView.layoutIfNeeded()
-        previousScrollContentOffsetX = Constants.startOffsetX
-        scrollView.contentOffset = CGPoint(x: Constants.startOffsetX, y: 0)
+        previousScrollContentOffsetX = startOffsetX
+        scrollView.contentOffset = CGPoint(x: startOffsetX, y: 0)
         setupContent()
         viewModel.updateTileViews(delta: 0)
         setupPageControl()

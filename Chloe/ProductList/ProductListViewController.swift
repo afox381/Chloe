@@ -177,7 +177,7 @@ extension ProductListViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let sectionInset = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset else { return .zero }
-        let screenWidth = UIScreen.main.bounds.width - (sectionInset.left + sectionInset.right + Constants.cellSpacing)
+        let screenWidth = /*UIScreen.main.bounds.width*/ 390 - (sectionInset.left + sectionInset.right + Constants.cellSpacing)
         let width = floor(screenWidth / 2)
         let height = width * Constants.cellWidthHeighRatio
         return CGSize(width: width, height: height)

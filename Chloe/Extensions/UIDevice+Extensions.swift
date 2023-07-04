@@ -29,75 +29,8 @@ extension UIDevice {
         return identifier
     }
     
-    var modelType: ModelType {
-        if isIPhoneXr {
-            return .iPhoneXr
-        } else if isIPhoneX {
-            return .iPhoneX
-        } else if isIPhone5 {
-            return .iPhone5
-        } else if isIPhone678 {
-            return .iPhone678
-        } else if isIPhone678Plus {
-            return .iPhone678Plus
-        } else if UIDevice.isIPad {
-            return .iPad
-        } else {
-            return .other
-        }
-    }
-    
-    var hasNotch: Bool {
-        return isIPhoneXr || isIPhoneX
-    }
-    
-    var isIPhoneX: Bool {
-        switch UIScreen.main.bounds.height {
-        case 812:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isIPhoneXr: Bool {
-        switch UIScreen.main.bounds.height {
-        case 896:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isIPhone5: Bool {
-        switch UIScreen.main.bounds.width {
-        case 320:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isIPhone678: Bool {
-        switch UIScreen.main.bounds.size {
-        case CGSize(width: 375, height: 667):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isIPhone678Plus: Bool {
-        switch UIScreen.main.bounds.size {
-        case CGSize(width: 414, height: 736):
-            return true
-        default:
-            return false
-        }
-    }
-    
     static var isIPad: Bool {
-        return UIDevice.current.userInterfaceIdiom == .pad
+        UIDevice.current.userInterfaceIdiom == .pad
     }
     
     /*

@@ -11,7 +11,7 @@ final class CategoryViewController: UIViewController {
         let carouselView = CarouselView.loadFromNib()
         carouselView.delegate = self
         carouselView.viewModel = CarouselViewModel(carouselItems: viewModel.carouselItems,
-                                                   viewWidth: UIScreen.main.bounds.width)
+                                                   viewWidth: 390) //UIScreen.main.bounds.width)
         return carouselView
     }()
     
@@ -29,7 +29,10 @@ final class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        #if os(xrOS)
+        #else
         view.backgroundColor = UIColor(named: "ChloeGrey")
+        #endif
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.add(child: carouselView)
     }
