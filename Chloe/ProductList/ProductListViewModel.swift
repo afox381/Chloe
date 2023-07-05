@@ -13,7 +13,7 @@ protocol ProductListViewModelType {
 struct ProductListViewModel: ProductListViewModelType {
     let title: String
     let category: String
-    let productListRepository: ProductListRepositoryType
+    let productListRepository: ProductListRepositoryProtocol
     let likesRepository: LikesRepositoryType
     
     func fetchProductList(page: Int) -> AnyPublisher<AsyncState<ProductList?>, Never> {
